@@ -8,16 +8,12 @@ body {
 }
 
 .main{
-  width: 400px;
-  min-height: 500px;
+  width: 475px;
+  min-height: 475px;
   border: none;
   border-radius: 20px;
   padding: 25px;
   background-color: #fff;
-}
-
-.img-fluid {
-  margin-bottom: 30px;
 }
 
 .loginForm{

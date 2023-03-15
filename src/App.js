@@ -15,11 +15,11 @@ export default function App() {
 			<div className='inputs'>
 				<form>
 					<MDBInput className='mb-4' type='email' id='form1Example1' label='Email ou matrícula' />
-					<MDBInput className='mb-4' type='password' id='form1Example2' label='Senha' />
+					<MDBInput className='mb-4' type='password' id='form1Example1' label='Senha' />
 
 					<MDBRow className='mb-4'>
 						<MDBCol className='d-flex justify-content-center'>
-							<MDBCheckbox id='form1Example3' label='Permanecer conectado' defaultChecked />
+							<MDBCheckbox id='form1Example3' label='Continuar conectado' defaultChecked />
 						</MDBCol>
 						<MDBCol className='d-flex justify-content-center'>
 							<a href='#!'>Esqueceu sua senha?</a>
