@@ -30,8 +30,10 @@ const Sidebar = () => {
                 </div>
                 <hr/>
                 <div className="vacationInfo">
-                    <div className="vacationDaysLeft">
-                        Dias de férias restentes: 10
+                    <div className="vacationDaysLeftSection">
+
+                        <div>Dias de férias restentes</div>
+                        <div className="vacationDaysLeft">&nbsp; 10 dias &nbsp;</div>
                     </div>
                     <div className="vacationRequest">
                         Sem férias solicitadas no momento

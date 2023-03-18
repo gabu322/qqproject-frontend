@@ -38,6 +38,7 @@ body {
 .sidebarBase.open .outsideBlur {
   background-color: rgba(0, 0, 0, 0.199);
   width: 100vw;
+  pointer-events: all;
 }
 .sidebarBase .sidebarButton {
   background-color: #f8f8f8;
@@ -57,7 +58,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  font-weight: 500;
+  font-weight: 400;
 }
 .sidebarBase .insideContent > * {
   margin: 0px;
@@ -94,12 +95,19 @@ body {
   align-items: center;
   gap: 10px;
 }
-.sidebarBase .insideContent .vacationInfo .vacationDaysLeft {
+.sidebarBase .insideContent .vacationInfo .vacationDaysLeftSection {
   width: 100%;
   padding-left: 3px;
   font-size: 20px;
-  border: solid #afafaf 2px;
+  border: solid #ddd 2px;
   border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebarBase .insideContent .vacationInfo .vacationDaysLeftSection .vacationDaysLeft {
+  background-color: #B0FFBD;
 }
 .sidebarBase .insideContent .vacationInfo .vacationRequestButton {
   width: 100%;
