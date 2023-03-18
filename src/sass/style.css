@@ -1,0 +1,231 @@
+* {
+  font-family: "Roboto";
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+.sidebarBase {
+  background-color: #f8f8f8;
+  height: 100vh;
+  position: fixed;
+  width: 20vw;
+  left: -20vw;
+  top: 0;
+  transition: 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+.sidebarBase .outsideBlur {
+  width: 100vw;
+  position: absolute;
+  left: 20vw;
+  background-color: rgba(0, 0, 0, 0);
+  height: 100vh;
+  background-color: blur(10px);
+  transition: 0.2s ease-in-out;
+  transition: left none;
+  pointer-events: none;
+}
+.sidebarBase.open {
+  left: 0;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+.sidebarBase.open .outsideBlur {
+  background-color: rgba(0, 0, 0, 0.199);
+  width: 100vw;
+}
+.sidebarBase .sidebarButton {
+  background-color: #f8f8f8;
+  position: absolute;
+  left: 20vw;
+  top: 5vh;
+  width: 8vh;
+  height: 8vh;
+  border: none;
+  border-radius: 0 50% 50% 0;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.sidebarBase .insideContent {
+  width: 90%;
+  height: 95%;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-weight: 500;
+}
+.sidebarBase .insideContent > * {
+  margin: 0px;
+}
+.sidebarBase .insideContent .identification {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  height: 40px;
+}
+.sidebarBase .insideContent .identification .icon {
+  height: 40px;
+  width: 40px;
+}
+.sidebarBase .insideContent .identification .icon .img-fluid {
+  border-radius: 50%;
+}
+.sidebarBase .insideContent .identification .naming {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.sidebarBase .insideContent .identification .naming .employeeName {
+  font-size: 25px;
+  line-height: 25px;
+}
+.sidebarBase .insideContent .identification .naming .employeeId {
+  position: relative;
+  line-height: 10px;
+}
+.sidebarBase .insideContent .vacationInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.sidebarBase .insideContent .vacationInfo .vacationDaysLeft {
+  width: 100%;
+  padding-left: 3px;
+  font-size: 20px;
+  border: solid #afafaf 2px;
+  border-radius: 5px;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestButton {
+  width: 100%;
+}
+.sidebarBase .insideContent .bonusSallaryInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.sidebarBase .insideContent .bonusSallaryInfo .bonusSallaryRequestButton {
+  width: 100%;
+}
+.sidebarBase .insideContent .logoutButton {
+  flex: end;
+  margin-top: auto;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  width: 475px;
+  min-height: 100px;
+  border: none;
+  border-radius: 20px;
+  padding: 25px;
+  background-color: #fff;
+}
+
+.loginForm {
+  width: 90%;
+  margin: auto;
+}
+
+.inputs {
+  width: 90%;
+  margin: auto;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+.teste {
+  width: 70vw;
+  height: 50px;
+  background-color: #00A651;
+  margin-top: 10px;
+}
+
+.text-center {
+  margin: auto;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.fullHeight {
+  height: 100%;
+}
+
+.dropdown {
+  margin-top: 50px;
+}
+
+.testingPadding {
+  padding: 10px;
+}
+
+.nome {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.searchBar {
+  position: absolute;
+  top: 5vh;
+  left: 15vw;
+  width: 70vw;
+  height: 50px;
+  border-radius: 25px;
+  border: 1px solid #8B8B8B;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px;
+}
+
+.searchInput {
+  border: none;
+  font-size: 20px;
+  width: 50vw;
+}
+
+.searchInput:focus-visible {
+  border: none;
+}
+
+.accorditionList {
+  width: 70vw;
+  position: absolute;
+  top: 130px;
+  left: 15vw;
+}
+
+.accorditionClass {
+  margin-bottom: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.accordion-button {
+  font-size: 20px;
+  color: #666;
+}
+
+.accordion-button:not(.collapsed) {
+  font-size: 20px;
+  color: #666;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,243 @@
+$sidebarSize: 20vw;
+* {
+    font-family: 'Roboto';
+}
+
+body{
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+.sidebarBase{
+    background-color: #f8f8f8;
+    height: 100vh;
+    position: fixed;
+    width: $sidebarSize;
+    left: -$sidebarSize;
+    top: 0;
+    transition: 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+
+    .outsideBlur{
+        width: 100vw;
+        position: absolute;
+        left: $sidebarSize;
+        background-color: rgba(0, 0, 0, 0);
+        height: 100vh;
+        background-color: blur(10px);
+
+        transition: 0.2s ease-in-out;
+        transition: left none;
+        pointer-events:none;
+    }
+
+    &.open{
+        left: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+        .outsideBlur{
+            background-color: rgba(0, 0, 0, 0.199);
+            width: 100vw;
+
+        }
+    }
+
+    .sidebarButton{
+        background-color: #f8f8f8;
+        position: absolute;
+        left: $sidebarSize;
+        top: 5vh;
+        width: 8vh;
+        height: 8vh;
+        border: none;
+        border-radius: 0 50% 50% 0;
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .insideContent {
+        width: 90%;
+        height: 95%;
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        font-weight: 500;
+        > * {
+            margin: 0px;
+        }
+
+        .identification {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            height: 40px;
+            .icon{
+                height: 40px;
+                width: 40px;
+                .img-fluid{
+                    border-radius: 50%;
+
+                }
+            }
+            .naming{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                .employeeName{
+                    font-size: 25px;
+                    line-height: 25px;
+                }
+                .employeeId{
+                    position: relative;
+                    line-height: 10px;
+                }
+            }
+        }
+
+        .vacationInfo{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            .vacationDaysLeft{
+                width: 100%;
+                padding-left: 3px;
+                font-size: 20px;
+                border: solid #afafaf 2px;
+                border-radius: 5px;
+
+            }
+            .vacationRequestButton{
+                width: 100%;
+            }
+        }
+
+        .bonusSallaryInfo{
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+
+            .bonusSallaryRequestButton{
+                width: 100%;
+            }
+        }
+
+        .logoutButton{
+            flex: end;
+            margin-top: auto;
+        }
+    }
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main{
+    width: 475px;
+    min-height: 100px;
+    border: none;
+    border-radius: 20px;
+    padding: 25px;
+    background-color: #fff;
+  }
+
+  .loginForm{
+    width: 90%;
+    margin: auto;
+  }
+
+  .inputs{
+    width: 90%;
+    margin: auto;
+  }
+
+  body{
+    background-color: #ffffff;
+}
+.teste{
+    width: 70vw;
+    height: 50px;
+    background-color: #00A651;
+    margin-top: 10px;
+}
+
+.text-center{
+    margin: auto;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.fullHeight{
+
+    height: 100%;
+}
+
+.dropdown{
+    margin-top: 50px;
+}
+
+.testingPadding {
+    padding: 10px;
+}
+
+.nome {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.searchBar {
+    position: absolute;
+    top: 5vh;
+    left: 15vw;
+    width: 70vw;
+    height: 50px;
+    border-radius: 25px;
+    border: 1px solid #8B8B8B;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+}
+
+.searchInput {
+    border: none;
+    font-size: 20px;
+    width: 50vw;
+}
+.searchInput:focus-visible {
+    border: none;
+}
+
+.accorditionList{
+    width: 70vw;
+    position: absolute;
+    top: 130px;
+    left: 15vw;
+}
+
+.accorditionClass{
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.accordion-button{
+    font-size: 20px;
+    color: #666;
+}
+.accordion-button:not(.collapsed){
+    font-size: 20px;
+    color: #666;
+}
+
