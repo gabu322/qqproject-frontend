@@ -1,74 +1,86 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-	MDBAccordion,
-	MDBAccordionItem,
-	MDBIcon,
-	MDBInput,
-	MDBValidation,
-	MDBValidationItem,
-	MDBCheckbox,
-	MDBBtn,
-	MDBRadio
+    MDBAccordion,
+    MDBAccordionItem,
+    MDBIcon,
+    MDBInput,
+    MDBValidation,
+    MDBValidationItem,
+    MDBCheckbox,
+    MDBBtn,
+    MDBRadio
 } from 'mdb-react-ui-kit';
+import axios from 'axios';
 
-const EmployeeRegistration = () => {
-	const [formValue, setFormValue] = useState({
-		name: 'Gabriel Ambrozini Biancardi',
-		email: 'gabriel.biancardi@verdecard.com',
-		matricula: '123456',
-		gestor: '',
-		cargo: '',
-		contrato: '',
-		isGerente: '',
-		setor: '',
-		cpf: '',
-		dataContratacao: ''
-	  });
-	  const onChange = (e) => {
-		setFormValue({ ...formValue, [e.target.name]: e.target.value });
-	  };
-	return (
+const EmployeeRegistration = (props) => {
+    let employeeData = props.data
+    const [formValue, setFormValue] = useState({
+        name: employeeData.name,
+        employeeId: employeeData.employeeId,
+        cpf_cnpj: employeeData.cpf_cnpj,
+        businessEmail: employeeData.businessEmail,
+        personalEmail: employeeData.personalEmail,
+        contractType: employeeData.contractType,
+        managerId: employeeData.managerId,
+        isManager: employeeData.isManager,
+        permissionEditEmployeeRegistration: employeeData.permissionEditEmployeeRegistration,
+        lastThirtheenth: employeeData.lastThirtheenth,
+        vacationDaysLeft: employeeData.vacationDaysLeft,
+        admissionDate: employeeData.admissionDate
+    });
+    const onChange = (e) => {
+        setFormValue({ ...formValue, [e.target.name]: e.target.value });
+    };
+    const showValues = () => {
+        console.log(formValue)
+    }
+    const updateEmployee = () => {
+        axios.put("http://localhost:3001/employeeRegistration/" + formValue.employeeId, formValue)
+    }
+
+
+    return (
         <MDBAccordion initialActive={0} className='accorditionClass' >
-            <MDBAccordionItem collapseId={2} headerTitle={<><MDBIcon fas icon="question-circle" /> &nbsp; Gabriel Ambrozini - 123456</>} headerClassName='accordionHeader'>
+            <MDBAccordionItem collapseId={2} headerTitle={<><MDBIcon fas icon="question-circle" /> &nbsp; {employeeData.name} - {employeeData.employeeId} </>} headerClassName='accordionHeader'>
                 <MDBValidation className='row g-3'>
-                    <MDBValidationItem className='col-md-4' feedback='Please choose a username.' invalid>
-                        <MDBInput value={formValue.name} name='name' onChange={onChange} label='Nome completo'/>
-                    </MDBValidationItem>
-                    <MDBValidationItem feedback='Please choose a username.' invalid className='col-md-4'>
-                        <MDBInput value={formValue.email} name='email' onChange={onChange} label='Email' />
-                    </MDBValidationItem>
-                    <MDBValidationItem className='col-md-4' feedback='Please choose a username.' invalid>
-                        <MDBInput value={formValue.matricula} name='matricula'  onChange={onChange}  id='validationCustom02' label='Matricula'/>
-                    </MDBValidationItem>
-                    <MDBValidationItem className='col-md-4' feedback='Please choose a username.' invalid>
-                        <MDBInput value={formValue.setor} name='setor' onChange={onChange} label='Setor'/>
+                    <MDBValidationItem className='col-md-4'>
+                        <MDBInput value={formValue.name} name='name' onChange={onChange} label='Nome completo' />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4'>
-                        <MDBInput value={formValue.cargo} name='cargo'  onChange={onChange}  id='validationCustom02' label='Cargo'/>
+                        <MDBInput value={formValue.employeeId} name='employeeId' onChange={onChange} label='Matricula' />
+                    </MDBValidationItem>
+                    <MDBValidationItem className='col-md-4'>
+                        <MDBInput value={formValue.cpf_cnpj} name='cpf_cnpj' onChange={onChange} label='CPF/CNPJ' />
+                    </MDBValidationItem>
+                    <MDBValidationItem className='col-md-4'>
+                        <MDBInput value={formValue.businessEmail} name='businessEmail' onChange={onChange} label='Email empresarial' />
+                    </MDBValidationItem>
+                    <MDBValidationItem className='col-md-4'>
+                        <MDBInput value={formValue.personalEmail} name='personalEmail' onChange={onChange} label='Email pessoal' />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-2 d-flex align-items-center justify-content-between'>
-                        <MDBRadio name='flexRadioDefault' id='flexRadioDefault1' label='CLT' />
-                        <MDBRadio name='flexRadioDefault' id='flexRadioDefault2' label='PJ' defaultChecked />
+                        <MDBRadio value={"CLT"} name='contractType' label='CLT' onChange={onChange} />
+                        <MDBRadio value={"PJ"} name='contractType' label='PJ' onChange={onChange} />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-2 d-flex align-items-center justify-content-center'>
-                        <MDBCheckbox value={formValue.isGerente} name='isGerente' onChange={onChange} label='Cargo de Gestor'/>
+                        <MDBCheckbox  name='isManager' onChange={onChange} label='Cargo de Gestor' />
                     </MDBValidationItem>
-                    <MDBValidationItem className='col-md-4' feedback='Please choose a username.' invalid>
-                        <MDBInput value={formValue.dataContratacao} name='dataContratacao' onChange={onChange} label='Data de contratação' type='date'/>
+                    <MDBValidationItem className='col-md-4'>
+                        <MDBInput value={formValue.dataContratacao} name='dataContratacao' onChange={onChange} label='Data de contratação' type='date' />
                     </MDBValidationItem>
-                    <MDBValidationItem className='col-md-4' feedback='Please choose a username.' invalid>
-                        <MDBInput value={formValue.cpf} name='cpf' onChange={onChange} label='CPF/CNPJ'/>
-                    </MDBValidationItem>
-                    <MDBValidationItem className='col-md-2 d-grid'>
-                        <MDBBtn type='submit'>Cadastrar</MDBBtn>
+                    <MDBValidationItem className='col-md-4'>
+                        <MDBInput value={formValue.cpf} name='cpf' onChange={onChange} label='CPF/CNPJ' />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-2 d-grid'>
+                        <MDBBtn onClick={showValues} type='reset'>Cadastrar</MDBBtn>
+                    </MDBValidationItem>
+                    <MDBValidationItem className='col-md-2 row-md-2 d-grid'>
                         <MDBBtn type='reset'>Reiniciar</MDBBtn>
                     </MDBValidationItem>
                 </MDBValidation>
             </MDBAccordionItem>
         </MDBAccordion>
-	);
+    );
 }
 
 export default EmployeeRegistration;

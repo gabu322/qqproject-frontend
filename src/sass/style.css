@@ -7,6 +7,10 @@ body {
   min-height: 100vh;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .sidebarBase {
   background-color: #f8f8f8;
   height: 100vh;
@@ -40,16 +44,42 @@ body {
   width: 100vw;
   pointer-events: all;
 }
+.sidebarBase.open .bar1 {
+  top: 0vh;
+}
+.sidebarBase.open .bar2 {
+  top: 3vh;
+}
+.sidebarBase.open .bar3 {
+  top: 4.75vh;
+}
 .sidebarBase .sidebarButton {
   background-color: #f8f8f8;
   position: absolute;
   left: 20vw;
   top: 5vh;
-  width: 8vh;
-  height: 8vh;
+  width: 7vh;
+  height: 7vh;
   border: none;
   border-radius: 0 50% 50% 0;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.sidebarBase .sidebarButton > * {
+  width: 5vh;
+  height: 1vh;
+  background-color: #aaa;
+  position: absolute;
+  border-radius: 0.5vh;
+  transition: 0.5 ease-in-out;
+}
+.sidebarBase .sidebarButton .bar1 {
+  top: 1.25vh;
+}
+.sidebarBase .sidebarButton .bar2 {
+  top: 3vh;
+}
+.sidebarBase .sidebarButton .bar3 {
+  top: 4.75vh;
 }
 .sidebarBase .insideContent {
   width: 90%;
@@ -62,6 +92,9 @@ body {
 }
 .sidebarBase .insideContent > * {
   margin: 0px;
+}
+.sidebarBase .insideContent .fullButton {
+  width: 100%;
 }
 .sidebarBase .insideContent .identification {
   display: flex;
@@ -98,16 +131,18 @@ body {
 .sidebarBase .insideContent .vacationInfo .vacationDaysLeftSection {
   width: 100%;
   padding-left: 3px;
-  font-size: 20px;
+  font-size: 16px;
   border: solid #ddd 2px;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  background-color: #ddd;
 }
 .sidebarBase .insideContent .vacationInfo .vacationDaysLeftSection .vacationDaysLeft {
   background-color: #B0FFBD;
+  border-radius: 5px;
 }
 .sidebarBase .insideContent .vacationInfo .vacationRequestButton {
   width: 100%;
@@ -124,6 +159,10 @@ body {
 .sidebarBase .insideContent .logoutButton {
   flex: end;
   margin-top: auto;
+}
+
+.textArea {
+  width: 1000px;
 }
 
 body {
@@ -162,7 +201,9 @@ body {
   width: 70vw;
   height: 50px;
   background-color: #00A651;
-  margin-top: 10px;
+  z-index: 3;
+  position: fixed;
+  top: 10px;
 }
 
 .text-center {
@@ -234,6 +275,24 @@ body {
 .accordion-button:not(.collapsed) {
   font-size: 20px;
   color: #666;
+}
+
+.callendarBase {
+  width: 70vw;
+  display: grid;
+  gap: 0.5vh;
+  grid-template-columns: repeat(7, 1fr);
+}
+.callendarBase .dateCard {
+  width: 9.9vw;
+  height: 15vh;
+  padding: 10px;
+  font-size: 20px;
+  line-height: 15px;
+  border-radius: 10px;
+}
+.callendarBase .disabled {
+  background-color: rgba(136, 136, 136, 0.2509803922);
 }
 
 /*# sourceMappingURL=style.css.map */

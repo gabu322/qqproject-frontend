@@ -7,7 +7,9 @@ body{
     min-width: 100vw;
     min-height: 100vh;
 }
-
+body::-webkit-scrollbar{
+    display: none;
+  }
 .sidebarBase{
     background-color: #f8f8f8;
     height: 100vh;
@@ -44,6 +46,15 @@ body{
         pointer-events:all;
 
         }
+        .bar1{
+            top: 0vh;
+        }
+        .bar2{
+            top: 3vh;
+        }
+        .bar3{
+            top: 4.75vh;
+        }
     }
 
     .sidebarButton{
@@ -51,11 +62,28 @@ body{
         position: absolute;
         left: $sidebarSize;
         top: 5vh;
-        width: 8vh;
-        height: 8vh;
+        width: 7vh;
+        height: 7vh;
         border: none;
         border-radius: 0 50% 50% 0;
         box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+        > * {
+            width: 5vh;
+            height: 1vh;
+            background-color: #aaa;
+            position: absolute;
+            border-radius: 0.5vh;
+            transition: 0.5 ease-in-out;
+        }
+        .bar1{
+            top: 1.25vh;
+        }
+        .bar2{
+            top: 3vh;
+        }
+        .bar3{
+            top: 4.75vh;
+        }
     }
 
     .insideContent {
@@ -70,6 +98,9 @@ body{
             margin: 0px;
         }
 
+        .fullButton{
+            width: 100%;
+        }
         .identification {
             display: flex;
             flex-direction: row;
@@ -106,16 +137,19 @@ body{
             .vacationDaysLeftSection{
                 width: 100%;
                 padding-left: 3px;
-                font-size: 20px;
+                font-size: 16px;
                 border: solid #ddd 2px;
                 border-radius: 5px;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
+                background-color: #ddd;
+
 
                 .vacationDaysLeft{
                     background-color: #B0FFBD;
+                    border-radius: 5px;
                 }
             }
             .vacationRequestButton{
@@ -141,6 +175,10 @@ body{
 
         }
     }
+}
+
+.textArea{
+    width: 1000px;
 }
 
 body {
@@ -178,7 +216,9 @@ body {
     width: 70vw;
     height: 50px;
     background-color: #00A651;
-    margin-top: 10px;
+    z-index: 3;
+    position: fixed;
+    top:10px;
 }
 
 .text-center{
@@ -251,3 +291,22 @@ body {
     color: #666;
 }
 
+.callendarBase{
+    width: 70vw;
+    display: grid;
+    gap:0.5vh;
+    grid-template-columns: repeat(7, 1fr);
+
+    .dateCard{
+        width: 9.9vw;
+        height: 15vh;
+        padding: 10px;
+        font-size: 20px;
+        line-height: 15px;
+        border-radius: 10px;
+
+    }
+    .disabled{
+        background-color: #88888840;
+    }
+}

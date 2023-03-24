@@ -16,7 +16,7 @@ const Login = () => {
 
     let doLogin = useNavigate();
     function goToMain() {
-        doLogin('/main')
+        doLogin('/callendar')
     }
 
 	return (
@@ -24,12 +24,12 @@ const Login = () => {
 			<img src='/logo.png' className='img-fluid mb-4' alt='...' />
 			<div className='inputs'>
 				<form>
-					<MDBInput className='mb-4' type='email' id='form1Example1' label='Email ou matrícula' />
-					<MDBInput className='mb-4' type='password' id='form1Example1' label='Senha' />
+					<MDBInput className='mb-4' type='email' label='Email ou matrícula' />
+					<MDBInput className='mb-4' type='password' label='Senha' />
 
 					<MDBRow className='mb-4'>
 						<MDBCol className='d-flex justify-content-center'>
-							<MDBCheckbox id='form1Example3' label='Continuar conectado' defaultChecked />
+							<MDBCheckbox label='Continuar conectado' defaultChecked />
 						</MDBCol>
 						<MDBCol className='d-flex justify-content-center'>
 							<a href='#!'>Esqueceu sua senha?</a>
