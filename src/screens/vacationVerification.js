@@ -1,6 +1,5 @@
 import React from 'react';
 import { MDBIcon } from 'mdb-react-ui-kit';
-import Sidebar from '../components/sidebar';
 
 const VacationVerification = () => {
     return (

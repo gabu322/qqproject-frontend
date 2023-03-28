@@ -12,15 +12,16 @@ const EmployeeRegistrationScreen = () => {
             setEmployeeList(response.data);
         })
     }, []);
+
     return (
         <Fragment>
 			<div className='searchBar'>
-				<input type='text' className='searchInput'></input>
+				<input type='text' className='searchInput' value=''></input>
 				<MDBIcon fas icon="search" size='2x'/>
 			</div>
 			<div className='accorditionList'>
                 {employeeList?.map((employeeValues) => (
-                    <EmployeeRegistration data={employeeValues}/>
+                    <EmployeeRegistration key={employeeValues.EmployeeRegistration} data={employeeValues}/>
                 ))}
 		    </div>
         </Fragment>

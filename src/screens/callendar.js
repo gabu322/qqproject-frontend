@@ -1,7 +1,5 @@
 import { MDBCol, MDBContainer, MDBRow } from 'mdb-react-ui-kit';
 import React, { Fragment } from 'react';
-import Login from '../components/login';
-import Sidebar from '../components/sidebar';
 
 
 const Callendar = () => {

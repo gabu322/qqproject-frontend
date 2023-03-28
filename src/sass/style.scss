@@ -1,16 +1,87 @@
 $sidebarSize: 20vw;
+
 * {
     font-family: 'Roboto';
 }
 
-body{
-    min-width: 100vw;
-    min-height: 100vh;
+body {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
-body::-webkit-scrollbar{
-    display: none;
-  }
-.sidebarBase{
+
+.fullScreenBase {
+    height: 100vh;
+    width: 100vw;
+    background-color: #EEEEEE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .loginComponent {
+        width: 475px;
+        min-height: 100px;
+        border: none;
+        border-radius: 20px;
+        padding: 25px;
+        background-color: #fff;
+
+        .inputs {
+            width: 90%;
+            margin: auto;
+        }
+
+        .error {
+            color: red;
+        }
+
+        #loginError {
+            position: absolute;
+            top: 32px;
+        }
+
+        #passwordError {
+            position: absolute;
+            top: 32px;
+        }
+    }
+
+    .error {
+        color: red;
+    }
+
+    #nameError {
+        position: absolute;
+        top: 32px;
+    }
+
+    #employeeIdError {
+        position: absolute;
+        top: 32px;
+    }
+
+    #cpf_cnpjError {
+        position: absolute;
+        top: 32px;
+    }
+
+    #businessEmailError {
+        position: absolute;
+        top: 32px;
+    }
+
+    #passwordError {
+        position: absolute;
+        top: 32px;
+    }
+}
+
+.sidebarBase {
     background-color: #f8f8f8;
     height: 100vh;
     position: fixed;
@@ -23,7 +94,7 @@ body::-webkit-scrollbar{
     justify-content: center;
     z-index: 5;
 
-    .outsideBlur{
+    .outsideBlur {
         width: 100vw;
         position: absolute;
         left: $sidebarSize;
@@ -33,31 +104,35 @@ body::-webkit-scrollbar{
 
         transition: 0.2s ease-in-out;
         transition: left none;
-        pointer-events:none;
+        pointer-events: none;
     }
 
-    &.open{
+    &.open {
         left: 0;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-        .outsideBlur{
+
+        .outsideBlur {
             background-color: rgba(0, 0, 0, 0.199);
             width: 100vw;
 
-        pointer-events:all;
+            pointer-events: all;
 
         }
-        .bar1{
+
+        .bar1 {
             top: 0vh;
         }
-        .bar2{
+
+        .bar2 {
             top: 3vh;
         }
-        .bar3{
+
+        .bar3 {
             top: 4.75vh;
         }
     }
 
-    .sidebarButton{
+    .sidebarButton {
         background-color: #f8f8f8;
         position: absolute;
         left: $sidebarSize;
@@ -67,7 +142,8 @@ body::-webkit-scrollbar{
         border: none;
         border-radius: 0 50% 50% 0;
         box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-        > * {
+
+        >* {
             width: 5vh;
             height: 1vh;
             background-color: #aaa;
@@ -75,13 +151,16 @@ body::-webkit-scrollbar{
             border-radius: 0.5vh;
             transition: 0.5 ease-in-out;
         }
-        .bar1{
+
+        .bar1 {
             top: 1.25vh;
         }
-        .bar2{
+
+        .bar2 {
             top: 3vh;
         }
-        .bar3{
+
+        .bar3 {
             top: 4.75vh;
         }
     }
@@ -94,47 +173,55 @@ body::-webkit-scrollbar{
         flex-direction: column;
         gap: 16px;
         font-weight: 400;
-        > * {
+
+        >* {
             margin: 0px;
         }
 
-        .fullButton{
+        .fullButton {
             width: 100%;
         }
+
         .identification {
             display: flex;
             flex-direction: row;
             gap: 10px;
             height: 40px;
-            .icon{
+
+            .icon {
                 height: 40px;
                 width: 40px;
-                .img-fluid{
+
+                .img-fluid {
                     border-radius: 50%;
 
                 }
             }
-            .naming{
+
+            .naming {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                .employeeName{
+
+                .employeeName {
                     font-size: 25px;
                     line-height: 25px;
                 }
-                .employeeId{
+
+                .employeeId {
                     position: relative;
                     line-height: 10px;
                 }
             }
         }
 
-        .vacationInfo{
+        .vacationInfo {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            .vacationDaysLeftSection{
+
+            .vacationDaysLeftSection {
                 width: 100%;
                 padding-left: 3px;
                 font-size: 16px;
@@ -147,29 +234,30 @@ body::-webkit-scrollbar{
                 background-color: #ddd;
 
 
-                .vacationDaysLeft{
+                .vacationDaysLeft {
                     background-color: #B0FFBD;
                     border-radius: 5px;
                 }
             }
-            .vacationRequestButton{
+
+            .vacationRequestButton {
                 width: 100%;
             }
         }
 
-        .bonusSallaryInfo{
+        .bonusSallaryInfo {
 
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
 
-            .bonusSallaryRequestButton{
+            .bonusSallaryRequestButton {
                 width: 100%;
             }
         }
 
-        .logoutButton{
+        .logoutButton {
             flex: end;
             margin-top: auto;
 
@@ -177,62 +265,38 @@ body::-webkit-scrollbar{
     }
 }
 
-.textArea{
+.textArea {
     width: 1000px;
 }
 
-body {
-    width: 100vw;
-    height: 100vh;
-    background-color: #eee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .main{
-    width: 475px;
-    min-height: 100px;
-    border: none;
-    border-radius: 20px;
-    padding: 25px;
-    background-color: #fff;
-  }
-
-  .loginForm{
+.loginForm {
     width: 90%;
     margin: auto;
-  }
-
-  .inputs{
-    width: 90%;
-    margin: auto;
-  }
-
-  body{
-    background-color: #ffffff;
 }
-.teste{
+
+
+
+.teste {
     width: 70vw;
     height: 50px;
     background-color: #00A651;
     z-index: 3;
     position: fixed;
-    top:10px;
+    top: 10px;
 }
 
-.text-center{
+.text-center {
     margin: auto;
     color: #ffffff;
     font-size: 20px;
 }
 
-.fullHeight{
+.fullHeight {
 
     height: 100%;
 }
 
-.dropdown{
+.dropdown {
     margin-top: 50px;
 }
 
@@ -252,52 +316,55 @@ body {
     width: 70vw;
     height: 50px;
     border-radius: 25px;
-    border: 1px solid #8B8B8B;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0px 15px;
+
+    .searchInput {
+        border: none;
+        font-size: 20px;
+        width: 50vw;
+    }
+
+    .searchInput:focus-visible {
+        border: none;
+    }
 }
 
-.searchInput {
-    border: none;
-    font-size: 20px;
-    width: 50vw;
-}
-.searchInput:focus-visible {
-    border: none;
-}
-
-.accorditionList{
+.accorditionList {
     width: 70vw;
     position: absolute;
     top: 130px;
     left: 15vw;
 }
 
-.accorditionClass{
+.accorditionClass {
     margin-bottom: 20px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
+
 }
 
-.accordion-button{
-    font-size: 20px;
-    color: #666;
-}
-.accordion-button:not(.collapsed){
+.accordion-button {
     font-size: 20px;
     color: #666;
 }
 
-.callendarBase{
+.accordion-button:not(.collapsed) {
+    font-size: 20px;
+    color: #666;
+}
+
+.callendarBase {
+    bottom: 0;
     width: 70vw;
     display: grid;
-    gap:0.5vh;
+    gap: 0.5vh;
     grid-template-columns: repeat(7, 1fr);
 
-    .dateCard{
+    .dateCard {
         width: 9.9vw;
         height: 15vh;
         padding: 10px;
@@ -306,7 +373,8 @@ body {
         border-radius: 10px;
 
     }
-    .disabled{
+
+    .disabled {
         background-color: #88888840;
     }
 }

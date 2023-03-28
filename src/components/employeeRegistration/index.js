@@ -24,20 +24,33 @@ const EmployeeRegistration = (props) => {
         managerId: employeeData.managerId,
         isManager: employeeData.isManager,
         permissionEditEmployeeRegistration: employeeData.permissionEditEmployeeRegistration,
-        lastThirtheenth: employeeData.lastThirtheenth,
-        vacationDaysLeft: employeeData.vacationDaysLeft,
-        admissionDate: employeeData.admissionDate
+        lastThirtheenth: employeeData.lastThirtheenth === null ? '' : employeeData.lastThirtheenth,
+        vacationDaysLeft:  employeeData.vacationDaysLeft === null ? '' : employeeData.vacationDaysLeft,
+        admissionDate:  employeeData.admissionDate === null ? '' : employeeData.admissionDate
     });
     const onChange = (e) => {
         setFormValue({ ...formValue, [e.target.name]: e.target.value });
     };
+
+    const [managerList, setManagerList] = useState();
+    useEffect(() => {
+        axios.get("http://localhost:3001/employeeRegistration/managers").then((response) => {
+            setManagerList(response.data);
+        })
+    }, []);
+
+
     const showValues = () => {
+        let managerName = document.getElementById('managerList').value
+        axios.get("http://localhost:3001/employeeRegistration/managers/" + managerName).then((response) => {
+            formValue.managerId = response.data.employeeId
+        })
         console.log(formValue)
     }
-    const updateEmployee = () => {
-        axios.put("http://localhost:3001/employeeRegistration/" + formValue.employeeId, formValue)
+    async function updateEmployee() {
+        showValues();
+        await axios.put("http://localhost:3001/employeeRegistration/" + formValue.employeeId, formValue)
     }
-
 
     return (
         <MDBAccordion initialActive={0} className='accorditionClass' >
@@ -58,24 +71,37 @@ const EmployeeRegistration = (props) => {
                     <MDBValidationItem className='col-md-4'>
                         <MDBInput value={formValue.personalEmail} name='personalEmail' onChange={onChange} label='Email pessoal' />
                     </MDBValidationItem>
-                    <MDBValidationItem className='col-md-2 d-flex align-items-center justify-content-between'>
-                        <MDBRadio value={"CLT"} name='contractType' label='CLT' onChange={onChange} />
-                        <MDBRadio value={"PJ"} name='contractType' label='PJ' onChange={onChange} />
+                    <MDBValidationItem className='col-md-4 d-flex align-items-center justify-content-center'>
+                        <MDBCheckbox  name='isManager' onChange={() => {formValue.permissionEditEmployeeRegistration = !formValue.permissionEditEmployeeRegistration}} label='Permissão para editar cadastro de funcionário' />
+                    </MDBValidationItem>
+                    <MDBValidationItem className='col-md-4'>
+                        <MDBInput value={formValue.admissionDate} name='admissionDate' onChange={onChange} label='Data de contratação' type='date' />
+                    </MDBValidationItem>
+                    <MDBValidationItem className='col-md-4'>
+                        <MDBInput value={formValue.lastThirtheenth} name='lastThirtheenth' onChange={onChange} label='Data do último 13º solicitado' type='date'/>
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-2 d-flex align-items-center justify-content-center'>
-                        <MDBCheckbox  name='isManager' onChange={onChange} label='Cargo de Gestor' />
+                        <MDBCheckbox  name='isManager'
+                       onChange={() => {formValue.isManager = !formValue.isManager}} id='isManagerCheckbox' label='Cargo de Gestor' />
+                    </MDBValidationItem>
+                    <MDBValidationItem className='col-md-2 d-flex align-items-center justify-content-around'>
+                        <MDBRadio value={"CLT"} name='contractType' label='CLT' onChange={onChange}/>
+                        <MDBRadio value={"PJ"} name='contractType' label='PJ' onChange={onChange} />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4'>
-                        <MDBInput value={formValue.dataContratacao} name='dataContratacao' onChange={onChange} label='Data de contratação' type='date' />
+                        <MDBInput value={formValue.vacationDaysLeft} name='vacationDaysLeft' onChange={onChange} label='Dias de férias restantes' />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4'>
-                        <MDBInput value={formValue.cpf} name='cpf' onChange={onChange} label='CPF/CNPJ' />
+                        <MDBInput name='managerId' onChange={onChange} id='managerList' label='Gerente' list='possibleManagers'/>
+                        <datalist id='possibleManagers'>
+                            {managerList?.map((manager) => (<option value={manager.name} key={manager.employeeData} id={manager.employeeId}></option>))}
+                        </datalist>
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-2 d-grid'>
-                        <MDBBtn onClick={showValues} type='reset'>Cadastrar</MDBBtn>
+                        <MDBBtn onClick={updateEmployee} type='reset'>Cadastrar</MDBBtn>
                     </MDBValidationItem>
-                    <MDBValidationItem className='col-md-2 row-md-2 d-grid'>
-                        <MDBBtn type='reset'>Reiniciar</MDBBtn>
+                    <MDBValidationItem className='col-md-2 d-grid'>
+                        <MDBBtn onClick={updateEmployee} type='reset' color='danger'>Deletar cadastro</MDBBtn>
                     </MDBValidationItem>
                 </MDBValidation>
             </MDBAccordionItem>
