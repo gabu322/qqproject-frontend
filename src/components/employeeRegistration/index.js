@@ -43,12 +43,13 @@ const EmployeeRegistration = (props) => {
     const showValues = () => {
         let managerName = document.getElementById('managerList').value
         axios.get("http://localhost:3001/employeeRegistration/managers/" + managerName).then((response) => {
-            formValue.managerId = response.data.employeeId
+            formValue.managerId = response.data.id
+            console.log(formValue.managerId);
         })
         console.log(formValue)
     }
     async function updateEmployee() {
-        showValues();
+        console.log(formValue)
         await axios.put("http://localhost:3001/employeeRegistration/" + formValue.employeeId, formValue)
     }
 
