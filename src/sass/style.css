@@ -82,7 +82,7 @@ body::-webkit-scrollbar {
   width: 20vw;
   left: -20vw;
   top: 0;
-  transition: 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,27 +95,9 @@ body::-webkit-scrollbar {
   background-color: rgba(0, 0, 0, 0);
   height: 100vh;
   background-color: blur(10px);
-  transition: 0.2s ease-in-out;
+  transition: all 0.5s ease-in-out;
   transition: left none;
   pointer-events: none;
-}
-.sidebarBase.open {
-  left: 0;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-}
-.sidebarBase.open .outsideBlur {
-  background-color: rgba(0, 0, 0, 0.199);
-  width: 100vw;
-  pointer-events: all;
-}
-.sidebarBase.open .bar1 {
-  top: 0vh;
-}
-.sidebarBase.open .bar2 {
-  top: 3vh;
-}
-.sidebarBase.open .bar3 {
-  top: 4.75vh;
 }
 .sidebarBase .sidebarButton {
   background-color: #f8f8f8;
@@ -134,16 +116,38 @@ body::-webkit-scrollbar {
   background-color: #aaa;
   position: absolute;
   border-radius: 0.5vh;
-  transition: 0.5 ease-in-out;
 }
 .sidebarBase .sidebarButton .bar1 {
   top: 1.25vh;
+  transition: all 0.5s ease-in-out;
 }
 .sidebarBase .sidebarButton .bar2 {
   top: 3vh;
+  transition: all 0.5s ease-in-out;
 }
 .sidebarBase .sidebarButton .bar3 {
   top: 4.75vh;
+  transition: all 0.5s ease-in-out;
+}
+.sidebarBase.open {
+  left: 0;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+.sidebarBase.open .outsideBlur {
+  background-color: rgba(0, 0, 0, 0.199);
+  width: 100vw;
+  pointer-events: all;
+}
+.sidebarBase.open .bar1 {
+  top: 3vh;
+  transform: rotate(45deg);
+}
+.sidebarBase.open .bar2 {
+  background-color: #f8f8f8;
+}
+.sidebarBase.open .bar3 {
+  top: 3vh;
+  transform: rotate(-45deg);
 }
 .sidebarBase .insideContent {
   width: 90%;
@@ -190,23 +194,58 @@ body::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
 }
 .sidebarBase .insideContent .vacationInfo .vacationDaysLeftSection {
   width: 100%;
   padding-left: 3px;
   font-size: 16px;
-  border: solid #ddd 2px;
+  border: solid #e5e5e5 2px;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: #ddd;
+  background-color: #e5e5e5;
 }
 .sidebarBase .insideContent .vacationInfo .vacationDaysLeftSection .vacationDaysLeft {
-  background-color: #B0FFBD;
   border-radius: 5px;
+}
+.sidebarBase .insideContent .vacationInfo .vacationDaysLeftSection #green {
+  background-color: #B0FFBD;
+}
+.sidebarBase .insideContent .vacationInfo .vacationDaysLeftSection #red {
+  background-color: #f44848;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestSection {
+  width: 100%;
+  height: 85px;
+  transition: all 0.5s ease-in-out;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestSection .requestVacation {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  position: relative;
+  height: 100%;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestSection .requestVacation .dates {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestSection .requestVacation .dates .buttonSizing {
+  width: 45%;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestSection .requestVacation .requestButton {
+  width: 100%;
+}
+.sidebarBase .insideContent .vacationInfo .closed {
+  width: 100%;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+  visibility: none;
+  z-index: -1;
 }
 .sidebarBase .insideContent .vacationInfo .vacationRequestButton {
   width: 100%;
@@ -287,6 +326,65 @@ body::-webkit-scrollbar {
 .searchBar .searchInput:focus-visible {
   border: none;
 }
+.searchBar .icons {
+  height: 65%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  /*.openAdvancedSearch {
+      height: 3vh;
+      width: 5vh;
+
+      >* {
+          width: 3vh;
+          height: 0.8vh;
+          background-color: #aaa;
+          position: absolute;
+          border-radius: 0.5vh;
+      }
+
+      .bar1 {
+
+          top: 2.5vh;
+          transition: $baseTransition;
+          transform: rotate(45deg);
+          right: 70px;
+
+
+      }
+
+      .bar2 {
+          top: 2.5vh;
+          transition: $baseTransition;
+          transform: rotate(-45deg);
+          right: 54px;
+      }
+
+  }*/
+}
+.searchBar .icons .dropdown {
+  margin-top: 0px;
+}
+.searchBar .icons .dropdown .dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  width: 200px;
+}
+.searchBar .advancedSearch {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+  transition: all 0.5s ease-in-out;
+}
+.searchBar .advancedSearch.open {
+  height: 100px;
+  border: solid black;
+}
 
 .accorditionList {
   width: 70vw;
@@ -299,6 +397,14 @@ body::-webkit-scrollbar {
   margin-bottom: 20px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+}
+.accorditionClass #error {
+  position: absolute;
+  top: -10px;
+  left: 11px;
+  background-color: white;
+  font-size: 0.8rem;
+  color: red;
 }
 
 .accordion-button {

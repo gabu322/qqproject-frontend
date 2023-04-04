@@ -11,6 +11,7 @@ const EmployeeRegistrationScreen = () => {
         axios.get("http://localhost:3001/employeeRegistration").then((response) => {
             setEmployeeList(response.data);
         })
+        console.log("a")
     }, []);
 
     return (
@@ -21,7 +22,7 @@ const EmployeeRegistrationScreen = () => {
             </div>
             <div className='accorditionList'>
                 {employeeList?.map((employeeValues) => (
-                    <EmployeeRegistration key={employeeValues.EmployeeRegistration} data={employeeValues} />
+                    <EmployeeRegistration key={employeeValues.employeeId} data={employeeValues} />
                 ))}
             </div>
         </Fragment>

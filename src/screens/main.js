@@ -5,7 +5,6 @@ import Sidebar from '../components/sidebar';
 const MainScreen = () => {
     return (
         <>
-            <Sidebar/>
             <Main/>
         </>
     )

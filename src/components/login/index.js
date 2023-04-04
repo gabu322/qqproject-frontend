@@ -13,12 +13,8 @@ const Login = () => {
     let employee = '';
 
     let navigate = useNavigate();
-    function goToSingin() {
+    const goToSingin = () => {
         navigate('/singin')
-    }
-
-    function goToMain() {
-        navigate('/callendar')
     }
 
     async function doLogin(event) {
@@ -41,7 +37,10 @@ const Login = () => {
             if (employee == null) {
                 document.getElementById('loginError').innerText = 'Email ou matrícula não encontrado'
             } else if (document.getElementById('password').value == employee.password) {
+                sessionStorage.setItem('user', JSON.stringify(employee))
+
                 navigate('/callendar')
+
             } else {
                 document.getElementById('passwordError').innerText = 'Senha incorreta';
             }
@@ -50,13 +49,15 @@ const Login = () => {
             document.getElementById('loginError').innerText = 'Campo vazio, preencha para entrar'
         }
     }
+
+
     return (
         <div className='fullScreenBase'>
             <div className='loginComponent shadow-5 text-dark'>
                 <img src='/logo.png' className='img-fluid mb-4' alt='...' />
                 <div className='inputs'>
                     <form>
-                        <MDBInput id='login' className='mb-4' type='email' label='Email ou matrícula' >
+                        <MDBInput id='login' className='mb-4' type='text' label='Email ou matrícula' >
                             <div id='loginError' className='error' ></div>
                         </MDBInput>
                         <MDBInput id='password' className='mb-4' type='password' label='Senha'  >

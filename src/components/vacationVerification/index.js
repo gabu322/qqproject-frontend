@@ -1,75 +1,72 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-	MDBAccordion,
-	MDBAccordionItem,
-	MDBIcon,
-	MDBInput,
-	MDBValidation,
-	MDBValidationItem,
-	MDBCheckbox,
-	MDBBtn,
-	MDBRadio,
-    MDBTextArea
+    MDBAccordion,
+    MDBAccordionItem,
+    MDBInput,
+    MDBValidation,
+    MDBValidationItem,
+    MDBCheckbox,
+    MDBBtn,
+    MDBRadio
 } from 'mdb-react-ui-kit';
+import axios from 'axios';
 
-const EmployeeRegistration = () => {
-	const [formValue, setFormValue] = useState({
-		name: 'Gabriel Ambrozini Biancardi',
-		email: 'gabriel.biancardi@verdecard.com',
-		matricula: '123456',
-		gestor: '',
-		cargo: '',
-		contrato: '',
-		isGerente: '',
-		setor: '',
-		cpf: '',
-		dataContratacao: '2023-03-08'
-	  });
-	  const onChange = (e) => {
-		setFormValue({ ...formValue, [e.target.name]: e.target.value });
-	  };
-	return (
-        <MDBAccordion initialActive={0} className='accorditionClass' >
-            <MDBAccordionItem collapseId={2} headerTitle={<><MDBIcon fas icon="question-circle" /> &nbsp; Gabriel Ambrozini - 123456</>} headerClassName='accordionHeader'>
+const VacationVerification = (props) => {
+
+
+    let vacationData = props.vacationData
+    let employeeData = props.employeeData.find(actualEmployee => actualEmployee.id === vacationData.employeeId)
+    const [formValue, setFormValue] = useState({
+        id: vacationData.id,
+        startDate: vacationData.startDate,
+        endDate: vacationData.endDate,
+        description: vacationData.description,
+        state: vacationData.state
+    });
+    const onChange = (e) => {
+        setFormValue({ ...formValue, [e.target.name]: e.target.value });
+    };
+
+    async function acceptVacation() {
+        formValue.state = 'Accepted'
+        //setFormValue({...formValue, state: 'Accepted'})
+        console.log(formValue)
+        axios.put("http://localhost:3001/vacation/" + formValue.id, formValue)
+    }
+
+    async function denyVacation() {
+        formValue.state = 'Denied'
+        //setFormValue({...formValue, state: 'Accepted'})
+        console.log(formValue)
+        axios.put("http://localhost:3001/vacation/" + formValue.id, formValue)
+    }
+
+    return (
+        <MDBAccordion initialActive={0} className='accorditionClass' key={props.key}>
+            <MDBAccordionItem collapseId={2} headerTitle={<>{employeeData.name} - {employeeData.employeeId} - Férais de {vacationData.startDate} a {vacationData.endDate}</>} headerClassName='accordionHeader'>
                 <MDBValidation className='row g-3'>
-                    <MDBValidationItem className='col-md-4' feedback='Please choose a username.' invalid>
-                        <MDBInput value={formValue.name} name='name' onChange={onChange} label='Nome completo'/>
-                    </MDBValidationItem>
-                    <MDBValidationItem feedback='Please choose a username.' invalid className='col-md-4'>
-                        <MDBInput value={formValue.email} name='email' onChange={onChange} label='Email' />
-                    </MDBValidationItem>
-                    <MDBValidationItem className='col-md-4' feedback='Please choose a username.' invalid>
-                        <MDBInput value={formValue.matricula} name='matricula'  onChange={onChange}  id='validationCustom02' label='Matricula'/>
-                    </MDBValidationItem>
-                    <MDBValidationItem className='col-md-4' feedback='Please choose a username.' invalid>
-                        <MDBInput value={formValue.setor} name='setor' onChange={onChange} label='Setor'/>
+                    <MDBValidationItem className='col-md-4'>
+                        <MDBInput name='name' label='Nome completo' readOnly onChange={onChange} value={employeeData.name} />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4'>
-                        <MDBInput value={formValue.cargo} name='cargo'  onChange={onChange}  id='validationCustom02' label='Cargo'/>
+                        <MDBInput name='startDate' label='Data de início das férias' readOnly onChange={onChange} value={formValue.startDate} />
                     </MDBValidationItem>
-                    <MDBValidationItem className='col-md-2 d-flex align-items-center justify-content-between'>
-                        <MDBRadio name='flexRadioDefault' id='flexRadioDefault1' label='CLT' />
-                        <MDBRadio name='flexRadioDefault' id='flexRadioDefault2' label='PJ' defaultChecked />
+                    <MDBValidationItem className='col-md-4'>
+                        <MDBInput name='endDate' label='Data de fim das férias' readOnly onChange={onChange} value={formValue.endDate} />
                     </MDBValidationItem>
-                    <MDBValidationItem className='col-md-2 d-flex align-items-center justify-content-center'>
-                        <MDBCheckbox value={formValue.isGerente} name='isGerente' onChange={onChange} label='Cargo de Gestor'/>
-                    </MDBValidationItem>
-                    <MDBValidationItem className='col-md-4' feedback='Please choose a username.' invalid>
-                        <MDBInput value={formValue.dataContratacao} name='dataContratacao' onChange={onChange} label='Data de contratação' type='date'/>
-                    </MDBValidationItem>
-                    <MDBValidationItem className='col-md-4' feedback='Please choose a username.' invalid>
-                        <MDBInput value={formValue.cpf} name='cpf' onChange={onChange} label='CPF/CNPJ'/>
+                    <MDBValidationItem className='col-md-8'>
+                        <MDBInput name='description' label='Descrição' onChange={onChange} value={formValue.description} />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-2 d-grid'>
-                        <MDBBtn type='submit'>Cadastrar</MDBBtn>
+                        <MDBBtn type='reset' color='success' onClick={acceptVacation}>Aceitar férias</MDBBtn>
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-2 d-grid'>
-                        <MDBBtn type='reset'>Reiniciar</MDBBtn>
+                        <MDBBtn type='reset' color='danger' onClick={denyVacation}>Negar férias</MDBBtn>
                     </MDBValidationItem>
                 </MDBValidation>
             </MDBAccordionItem>
         </MDBAccordion>
-	);
+    );
 }
 
-export default EmployeeRegistration;
+export default VacationVerification;

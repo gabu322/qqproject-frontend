@@ -1,13 +1,26 @@
 import { MDBCol, MDBContainer, MDBRow } from 'mdb-react-ui-kit';
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 
 
 const Callendar = () => {
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
     return (
         <Fragment>
             <MDBContainer className='teste rounded-pill shadow'>
                 <MDBRow className='fullHeight'>
-                    <MDBCol size='md' className='text-center'>Domingo</MDBCol>
+                    <MDBCol size='md' className='text-center' onClick={() => console.log(scrollPosition)}>Domingo</MDBCol>
                     <MDBCol size='md' className='text-center'>Segunda</MDBCol>
                     <MDBCol size='md' className='text-center'>Terça</MDBCol>
                     <MDBCol size='md' className='text-center'>Quarta</MDBCol>
