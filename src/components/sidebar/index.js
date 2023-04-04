@@ -36,10 +36,8 @@ const Sidebar = () => {
         })
     }, [])
 
-
     const [basicModal, setBasicModal] = useState(true);
     const toggleShow = () => setBasicModal(!basicModal);
-
 
     const today = new Date();
     const [vacationRequestForm, setVacationRequestForm] = useState({
@@ -115,9 +113,9 @@ const Sidebar = () => {
                         <><hr />
                             <div className="bonusSallaryInfo">
                                 <div className="bonusSallaryFeedback">Sem solicitações de 13º no momento</div>
-                                <MDBBtn className="bonusSallaryRequestButton" color="success" onClick={() => vacationList.map((value) => {
-                                    console.log(value)
-                                })}>Solicitar 13º</MDBBtn>
+                                <MDBBtn className="bonusSallaryRequestButton" color="success" onClick={() =>
+                                    console.log(employee.admissionDate)
+                                }>Solicitar 13º</MDBBtn>
                             </div>
                         </> : ''
                     }
