@@ -30,20 +30,21 @@ const VacationVerification = (props) => {
     async function acceptVacation() {
         formValue.state = 'Accepted'
         //setFormValue({...formValue, state: 'Accepted'})
-        console.log(formValue)
         axios.put("http://localhost:3001/vacation/" + formValue.id, formValue)
     }
 
     async function denyVacation() {
         formValue.state = 'Denied'
         //setFormValue({...formValue, state: 'Accepted'})
-        console.log(formValue)
         axios.put("http://localhost:3001/vacation/" + formValue.id, formValue)
     }
 
+    const vacationStartDate = new Date(vacationData.startDate)
+    const vacationEndDate = new Date(vacationData.endDate)
+
     return (
         <MDBAccordion initialActive={0} className='accorditionClass' key={props.key}>
-            <MDBAccordionItem collapseId={2} headerTitle={<>{employeeData.name} - {employeeData.employeeId} - Férais de {vacationData.startDate} a {vacationData.endDate}</>} headerClassName='accordionHeader'>
+            <MDBAccordionItem collapseId={2} headerTitle={<>{employeeData.name} - Férais de {vacationStartDate.getMonth() + 1} a {vacationData.endDate}</>} headerClassName='accordionHeader'>
                 <MDBValidation className='row g-3'>
                     <MDBValidationItem className='col-md-4'>
                         <MDBInput name='name' label='Nome completo' readOnly onChange={onChange} value={employeeData.name} />

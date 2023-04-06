@@ -210,15 +210,32 @@ body::-webkit-scrollbar {
 .sidebarBase .insideContent .vacationInfo .vacationDaysLeftSection .vacationDaysLeft {
   border-radius: 5px;
 }
+.sidebarBase .insideContent .vacationInfo .vacationDaysLeftSection #yellow {
+  background-color: #fffa75;
+}
 .sidebarBase .insideContent .vacationInfo .vacationDaysLeftSection #green {
   background-color: #B0FFBD;
 }
 .sidebarBase .insideContent .vacationInfo .vacationDaysLeftSection #red {
   background-color: #f44848;
 }
+.sidebarBase .insideContent .vacationInfo .vacationRequestList {
+  width: 100%;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestList > * {
+  border: lightgray solid 2px;
+  border-radius: 5px;
+  height: 100px;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestList .pendingVacation {
+  width: 100%;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestList .activeVacation {
+  width: 100%;
+}
 .sidebarBase .insideContent .vacationInfo .vacationRequestSection {
   width: 100%;
-  height: 85px;
+  height: 100px;
   transition: all 0.5s ease-in-out;
 }
 .sidebarBase .insideContent .vacationInfo .vacationRequestSection .requestVacation {
@@ -235,6 +252,11 @@ body::-webkit-scrollbar {
 }
 .sidebarBase .insideContent .vacationInfo .vacationRequestSection .requestVacation .dates .buttonSizing {
   width: 45%;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestSection .requestVacation .dates #vacationRequestError {
+  position: absolute;
+  top: 32px;
+  color: red;
 }
 .sidebarBase .insideContent .vacationInfo .vacationRequestSection .requestVacation .requestButton {
   width: 100%;
@@ -418,14 +440,12 @@ body::-webkit-scrollbar {
 }
 
 .callendarBase {
-  bottom: 0;
   width: 70vw;
   display: grid;
   gap: 0.5vh;
   grid-template-columns: repeat(7, 1fr);
 }
 .callendarBase .dateCard {
-  width: 9.9vw;
   height: 15vh;
   padding: 10px;
   font-size: 20px;
@@ -434,6 +454,32 @@ body::-webkit-scrollbar {
 }
 .callendarBase .disabled {
   background-color: rgba(136, 136, 136, 0.2509803922);
+}
+
+.bellComponent {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+}
+.bellComponent .notificationList {
+  position: inherit;
+  right: 30px;
+  width: 300px;
+  min-height: 100px;
+  background-color: white;
+  border-radius: 10px;
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+}
+.bellComponent .notificationList .insideTest {
+  width: 50%;
+  height: 50%;
+  background-color: #000;
+}
+.bellComponent .isShown {
+  opacity: 1;
 }
 
 /*# sourceMappingURL=style.css.map */

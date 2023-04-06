@@ -258,6 +258,10 @@ body {
                     border-radius: 5px;
                 }
 
+                #yellow {
+                    background-color: #fffa75;
+                }
+
                 #green {
                     background-color: #B0FFBD;
                 }
@@ -267,9 +271,29 @@ body {
                 }
             }
 
+            .vacationRequestList {
+                width: 100%;
+
+                >* {
+                    border: lightgray solid 2px;
+                    border-radius: 5px;
+                    height: 100px;
+                }
+
+                .pendingVacation {
+                    width: 100%;
+
+                }
+
+                .activeVacation {
+                    width: 100%;
+
+                }
+            }
+
             .vacationRequestSection {
                 width: 100%;
-                height: 85px;
+                height: 100px;
                 transition: $baseTransition;
 
                 .requestVacation {
@@ -288,6 +312,12 @@ body {
 
                         .buttonSizing {
                             width: 45%;
+                        }
+
+                        #vacationRequestError {
+                            position: absolute;
+                            top: 32px;
+                            color: red;
                         }
                     }
 
@@ -387,6 +417,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0px 15px;
+
     .searchInput {
         border: none;
         font-size: 20px;
@@ -404,8 +435,10 @@ body {
         flex-direction: row;
         justify-content: center;
         gap: 10px;
+
         .dropdown {
             margin-top: 0px;
+
             .dropdown-menu {
                 display: flex;
                 flex-direction: column;
@@ -414,6 +447,7 @@ body {
                 width: 200px;
             }
         }
+
         /*.openAdvancedSearch {
             height: 3vh;
             width: 5vh;
@@ -460,6 +494,7 @@ body {
         }
     }
 }
+
 .accorditionList {
     width: 70vw;
     position: absolute;
@@ -497,14 +532,12 @@ body {
 }
 
 .callendarBase {
-    bottom: 0;
     width: 70vw;
     display: grid;
     gap: 0.5vh;
     grid-template-columns: repeat(7, 1fr);
 
     .dateCard {
-        width: 9.9vw;
         height: 15vh;
         padding: 10px;
         font-size: 20px;
@@ -515,5 +548,32 @@ body {
 
     .disabled {
         background-color: #88888840;
+    }
+}
+
+.bellComponent {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+
+    .notificationList {
+        position: inherit;
+        right: 30px;
+        width: 300px;
+        min-height: 100px;
+        background-color: white;
+        border-radius: 10px;
+        transition: $baseTransition;
+        opacity: 0;
+        pointer-events: none;
+        .insideTest {
+            width: 50%;
+            height: 50%;
+            background-color: #000;
+        }
+    }
+    .isShown {
+        opacity: 1;
     }
 }
