@@ -3,13 +3,14 @@ import {
     MDBBtn,
     MDBInput
 } from 'mdb-react-ui-kit';
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../../sass/style.css';
 
 const Sidebar = () => {
     const [employee, setEmployee] = useState(JSON.parse(sessionStorage.user))
     //let teste = moment(employee.admissionDate, "YYYY-dd-mm").fromNow()
+
 
     let logOut = useNavigate();
     function doLogout() { logOut('/') }
@@ -36,51 +37,53 @@ const Sidebar = () => {
 
     const [vacationList, setVacationList] = useState([]);
     useEffect(() => {
-        axios.get("http://localhost:3001/vacation/" + employee.id).then((response) => {
+        axios.get("http://localhost:3001/vacations/" + employee.id).then((response) => {
             setVacationList(response.data);
             let prevHighestTime = 730
             response.data.map((vacation) => {
+                let startingDate = new Date(vacation.startDate);
+                let endingDate = new Date(vacation.endDate);
                 if (vacation.state === "Unread") {
                     vacationRelations.anyPendingVacation = true;
                     vacationRelations.pendingVacationIndex = vacation;
                 }
-                if (vacation.state === "Accepted") {
+                if (vacation.state === "Accepted" && endingDate > today) {
                     vacationRelations.anyActiveVacation = true;
                     vacationRelations.aciveVacationIndex = vacation;
                 }
-                let startingDate = new Date(vacation.startDate);
-                let endingDate = new Date(vacation.endDate);
                 if ((Math.ceil((endingDate.getTime() - startingDate.getTime()) / (1000 * 3600 * 24))) >= 15) {
                     vacationRelations.fifteenthPeriodDone = true
                 }
-                if(vacation.state === 'Accepted' && (Math.ceil((today.getTime() - endingDate.getTime()) / (1000 * 3600 * 24)) < prevHighestTime)) {
+                if (vacation.state === 'Accepted' && (Math.ceil((today.getTime() - endingDate.getTime()) / (1000 * 3600 * 24)) < prevHighestTime)) {
                     prevHighestTime = Math.ceil((today.getTime() - endingDate.getTime()) / (1000 * 3600 * 24))
                     vacationRelations.earlyestVacation = vacation
                 }
             })
-            if(prevHighestTime >= 300) {
+            if (prevHighestTime >= 300) {
                 axios.get("http://localhost:3001/notification/" + employee.id).then((response) => {
                     let thirteenthNotification = false
                     response.data.map((notificationData) => {
                         let sentDate = new Date(notificationData.sentDate)
                         let timeUntilNow = Math.ceil((today.getTime() - sentDate.getTime()) / (1000 * 3600 * 24))
-                        if(timeUntilNow <= 60 && notificationData.text === "Você está prestes a acumular período de férias") {
+                        if (timeUntilNow <= 60 && notificationData.text === "Você está prestes a acumular período de férias") {
                             thirteenthNotification = true
-                                console.log(today)
-                                console.log(sentDate)
                         }
                     })
-                    if(!thirteenthNotification) {
+                    if (!thirteenthNotification && employee.lastThirtheenth !== null) {
                         axios.post("http://localhost:3001/notification", {
                             employeeId: employee.id,
                             sentDate: today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDay(),
                             state: "Unread",
-                            text: "Você está prestes a acumular período de férias"
+                            text: "Atenção! Você está prestes a acumular período de férias, converse com seu gerente ou realize uma solicitação de férias"
                         })
-
+                        axios.post("http://localhost:3001/notification", {
+                            employeeId: employee.managerId,
+                            sentDate: today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDay(),
+                            state: "Unread",
+                            text: "Atenção! Seu funcionário " + employee.name + " está prestes a acumular período de férias"
+                        })
                     }
                 })
-
             }
         })
     }, [])
@@ -175,15 +178,16 @@ const Sidebar = () => {
                             <div className="employeeId">{employee.employeeId}</div>
                         </div>
                     </div>
-                    {employee.isManager ?
+                    {employee.isManager || employee.permissionEditEmployeeRegistration ?
                         <Fragment>
                             <hr />
-                            <MDBBtn className="fullButton" color="success" onClick={goToEmployeeRegistration}>Página principal</MDBBtn>
-                            <MDBBtn className="fullButton" color="success" onClick={goToVacationPage}>Verificação de férias</MDBBtn>
                             <MDBBtn className="fullButton" color="success" onClick={goToCallendar}>Calendário</MDBBtn>
+                            {employee.isManager ? <MDBBtn className="fullButton" color="success" onClick={goToVacationPage}>Verificação de férias</MDBBtn> : ""}
+                            {employee.permissionEditEmployeeRegistration ? <MDBBtn className="fullButton" color="success" onClick={goToEmployeeRegistration}>Página de cadastro de funcionários</MDBBtn> : ""}
+
                         </Fragment>
                         : ''}
-                    {daysFromAdmissionDate >= 365
+                    {daysFromAdmissionDate >= 365 && employee.contractType == "CLT"
                         ? <Fragment>
                             <hr />
                             <div className="vacationInfo">
@@ -194,12 +198,24 @@ const Sidebar = () => {
                                 </div>
                                 <div className="vacationRequestList mb-3">
                                     {vacationRelations.anyPendingVacation
-                                        ? <div className='pendingVacation mb-3'>Férias planejadas de  x a x, esperando a verificação do gerente</div>
-                                        : "Sem férias solicitadas no momento"}
-                                    {vacationRelations.anyActiveVacation
-                                        ? <div className='activeVacation mb-3'>
-                                            Férias planejadas de  x a x, esperando a verificação do gerente
+                                        ? <div className='vacation mb-2'>
+                                            <div className='inputs'>
+                                                <div className='date'><MDBInput type='date' value={vacationRelations.pendingVacationIndex.startDate} disabled label="Começo das férias" /></div>
+                                                <div className='date'><MDBInput type='date' value={vacationRelations.pendingVacationIndex.endDate} disabled label="Fim das férias" /></div>
+                                            </div>
+                                            <div className='extraText'> Férias solicitadas, aguarde a confirmação do seu gerente</div>
+
                                         </div>
+                                        : <div className='noVacationRequested mb-3'>Sem férias solicitadas no momento</div>}
+                                    {vacationRelations.anyActiveVacation
+                                        ? <div className='vacation mb-2'>
+                                        <div className='inputs'>
+                                            <div className='date'><MDBInput type='date' value={vacationRelations.aciveVacationIndex.startDate} disabled label="Começo das férias" /></div>
+                                            <div className='date'><MDBInput type='date' value={vacationRelations.aciveVacationIndex.endDate} disabled label="Fim das férias" /></div>
+                                        </div>
+                                        <div className='extraText'>Próximas férias aceitas marcadas na data acima, agora só aguardar até o dia :)</div>
+
+                                    </div>
                                         : ""}
 
                                 </div>

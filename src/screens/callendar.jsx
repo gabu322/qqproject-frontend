@@ -1,9 +1,11 @@
 import { MDBCol, MDBContainer, MDBRow } from 'mdb-react-ui-kit';
 import React, { Fragment, useState, useEffect } from 'react';
 import CallendarDays from '../components/callendarDays';
+import axios from 'axios';
 
 
 const Callendar = () => {
+    const [employee, setEmployee] = useState(JSON.parse(sessionStorage.user))
     let yearCallendar = [
         {
             monthName: 'Janeiro',
@@ -54,6 +56,7 @@ const Callendar = () => {
             monthSize: 31,
             firstDayWeekDay: 'Sexta'
         }];
+
     let newDate = new Date()
     let currentMonth = newDate.getMonth() + 1;
 
@@ -62,18 +65,28 @@ const Callendar = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
     };
-
+    
     useEffect(() => {
-
-
-
-
 
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+    const [dates, setDates] = useState();
+    useEffect(() => {
+        axios.get("http://localhost:3001/vacationVerification/" + employee.id).then((response) => {
+            setDates(yearCallendar?.map((month, index) => {
+                    let monthArr = []
+                    for (let i = 1; i <= month.monthSize; i++) {
+                        monthArr.push(
+                            <CallendarDays month={index + 1} day={i} currentMonth={currentMonth} monthName={month.monthName} employeeList={response.data} employeeQuantity={response.data.length}></CallendarDays>
+                        )
+                    }
+                    return monthArr;
+                }))
+        })
+    }, [])
     return (
         <Fragment>
             <MDBContainer className='teste rounded-pill shadow'>
@@ -88,17 +101,7 @@ const Callendar = () => {
                 </MDBRow>
             </MDBContainer>
             <div className='callendarBase'>
-                {yearCallendar?.map((month, index) => {
-                    let monthArr = []
-                    for (let i = 1; i <= month.monthSize; i++) {
-                        monthArr.push(
-                            <CallendarDays index={index} currentMonth={currentMonth} monthName={month.monthName} i={i}></CallendarDays>
-                        )
-                    }
-
-                    return monthArr
-                })}
-
+                {dates}
             </div>
         </Fragment>
     )

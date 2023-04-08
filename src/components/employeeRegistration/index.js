@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     MDBAccordion,
     MDBAccordionItem,
@@ -35,6 +35,7 @@ const EmployeeRegistration = (props) => {
     useEffect(() => {
         axios.get("http://localhost:3001/employeeRegistration/managers").then((response) => {
             setManagerList(response.data);
+            console.log(response.data)
         })
     }, []);
 

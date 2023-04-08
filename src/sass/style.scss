@@ -274,15 +274,29 @@ body {
             .vacationRequestList {
                 width: 100%;
 
-                >* {
+                .noVacationRequested{
+                    width: 100%;
+                    text-align: center;
+                }
+                .vacation {
                     border: lightgray solid 2px;
                     border-radius: 5px;
-                    height: 100px;
-                }
-
-                .pendingVacation {
+                    height: 110px;
                     width: 100%;
-
+                    padding: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    .inputs {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    .date {
+                        width: 45%;
+                    }
+                    .extraText {
+                        padding: 5px;
+                    }
                 }
 
                 .activeVacation {
@@ -376,7 +390,6 @@ body {
     width: 70vw;
     height: 50px;
     background-color: #00A651;
-    z-index: 3;
     position: fixed;
     top: 10px;
 }
@@ -539,11 +552,49 @@ body {
 
     .dateCard {
         height: 15vh;
-        padding: 10px;
+        padding: 5px;
         font-size: 20px;
         line-height: 15px;
         border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        .basicInfo {
+            display: flex;
+            justify-content: space-between;
+            > * {
+                padding: 5px;
+            }
+            .vacationInfo {
+                border-radius: 10px;
 
+            }
+            .bgcGreen{
+                background-color: #4ebf85;
+
+            }
+        }
+        .dashBoard {
+            margin: 5px;
+            padding: 5px;
+            border-radius: 5px;
+            border: lightgray solid 2px;
+            height: 100%;
+            width: 95%;
+            display: flex;
+            flex-direction: column;
+            font-size: 15px;
+            .activeEmployees {
+                width: 100%;
+                .activeEmployeesBar {
+                    display: grid;
+                    .numberOfActiveEmployees {
+                        width: 100%;
+                        height: 10px;
+                        background-color: yellow;
+                    }
+                }
+            }
+        }
     }
 
     .disabled {
@@ -560,20 +611,31 @@ body {
     .notificationList {
         position: inherit;
         right: 30px;
-        width: 300px;
+        width: 500px;
         min-height: 100px;
         background-color: white;
         border-radius: 10px;
         transition: $baseTransition;
         opacity: 0;
         pointer-events: none;
-        .insideTest {
-            width: 50%;
-            height: 50%;
-            background-color: #000;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 100;
+        .notificationComponent {
+            background-color: #efefef;
+            width: 100%;
+            border: #efefef solid 2px;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 20px;
+            z-index: 100;
         }
     }
     .isShown {
         opacity: 1;
+        pointer-events: fill;
     }
+
 }

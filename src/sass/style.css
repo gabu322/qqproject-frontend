@@ -222,13 +222,29 @@ body::-webkit-scrollbar {
 .sidebarBase .insideContent .vacationInfo .vacationRequestList {
   width: 100%;
 }
-.sidebarBase .insideContent .vacationInfo .vacationRequestList > * {
+.sidebarBase .insideContent .vacationInfo .vacationRequestList .noVacationRequested {
+  width: 100%;
+  text-align: center;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestList .vacation {
   border: lightgray solid 2px;
   border-radius: 5px;
-  height: 100px;
-}
-.sidebarBase .insideContent .vacationInfo .vacationRequestList .pendingVacation {
+  height: 110px;
   width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestList .vacation .inputs {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestList .vacation .date {
+  width: 45%;
+}
+.sidebarBase .insideContent .vacationInfo .vacationRequestList .vacation .extraText {
+  padding: 5px;
 }
 .sidebarBase .insideContent .vacationInfo .vacationRequestList .activeVacation {
   width: 100%;
@@ -299,7 +315,6 @@ body::-webkit-scrollbar {
   width: 70vw;
   height: 50px;
   background-color: #00A651;
-  z-index: 3;
   position: fixed;
   top: 10px;
 }
@@ -447,10 +462,47 @@ body::-webkit-scrollbar {
 }
 .callendarBase .dateCard {
   height: 15vh;
-  padding: 10px;
+  padding: 5px;
   font-size: 20px;
   line-height: 15px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.callendarBase .dateCard .basicInfo {
+  display: flex;
+  justify-content: space-between;
+}
+.callendarBase .dateCard .basicInfo > * {
+  padding: 5px;
+}
+.callendarBase .dateCard .basicInfo .vacationInfo {
+  border-radius: 10px;
+}
+.callendarBase .dateCard .basicInfo .bgcGreen {
+  background-color: #4ebf85;
+}
+.callendarBase .dateCard .dashBoard {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border: lightgray solid 2px;
+  height: 100%;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+}
+.callendarBase .dateCard .dashBoard .activeEmployees {
+  width: 100%;
+}
+.callendarBase .dateCard .dashBoard .activeEmployees .activeEmployeesBar {
+  display: grid;
+}
+.callendarBase .dateCard .dashBoard .activeEmployees .activeEmployeesBar .numberOfActiveEmployees {
+  width: 100%;
+  height: 10px;
+  background-color: yellow;
 }
 .callendarBase .disabled {
   background-color: rgba(136, 136, 136, 0.2509803922);
@@ -465,21 +517,31 @@ body::-webkit-scrollbar {
 .bellComponent .notificationList {
   position: inherit;
   right: 30px;
-  width: 300px;
+  width: 500px;
   min-height: 100px;
   background-color: white;
   border-radius: 10px;
   transition: all 0.5s ease-in-out;
   opacity: 0;
   pointer-events: none;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
 }
-.bellComponent .notificationList .insideTest {
-  width: 50%;
-  height: 50%;
-  background-color: #000;
+.bellComponent .notificationList .notificationComponent {
+  background-color: #efefef;
+  width: 100%;
+  border: #efefef solid 2px;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 20px;
+  z-index: 100;
 }
 .bellComponent .isShown {
   opacity: 1;
+  pointer-events: fill;
 }
 
 /*# sourceMappingURL=style.css.map */

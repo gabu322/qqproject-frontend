@@ -16,7 +16,7 @@ const VacationVerificationScreen = () => {
         axios.get("http://localhost:3001/vacationVerification/" + employee.id).then((response) => {
             response.data.forEach((employeeData) => {
                 setEmployeeList(employeeList => [...employeeList, employeeData])
-                axios.get("http://localhost:3001/vacation/" + employeeData.id).then((response) => {
+                axios.get("http://localhost:3001/vacations/" + employeeData.id).then((response) => {
                     response.data.forEach((vacationData) => {
                         setVacationList(vacationList => vacationList.concat(vacationData))
                         //setVacationList(vacationList => [...vacationList, vacationData])
@@ -34,11 +34,6 @@ const VacationVerificationScreen = () => {
         deniedVacations: false
     })
 
-    /*
-        <div className='openAdvancedSearch' onClick={() => { console.log(vacationList) }}>
-                                <div className='bar1' />
-                                <div className='bar2' />
-                            </div>*/
 
     return (
         <>
