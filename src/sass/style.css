@@ -297,6 +297,20 @@ body::-webkit-scrollbar {
 .sidebarBase .insideContent .bonusSallaryInfo .bonusSallaryRequestButton {
   width: 100%;
 }
+.sidebarBase .insideContent .bonusSallaryInfo .thirteenthSolicitation {
+  border: lightgray solid 2px;
+  border-radius: 5px;
+  min-height: 80px;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.sidebarBase .insideContent .bonusSallaryInfo .dateLastThirteenth {
+  width: 80%;
+}
 .sidebarBase .insideContent .logoutButton {
   flex: end;
   margin-top: auto;
@@ -454,6 +468,14 @@ body::-webkit-scrollbar {
   color: #666;
 }
 
+.searchBar {
+  z-index: -3;
+}
+
+.accorditionList {
+  z-index: -5;
+}
+
 .callendarBase {
   width: 70vw;
   display: grid;
@@ -482,27 +504,36 @@ body::-webkit-scrollbar {
 .callendarBase .dateCard .basicInfo .bgcGreen {
   background-color: #4ebf85;
 }
+.callendarBase .dateCard .basicInfo .actualDate {
+  border-radius: 50%;
+  background-color: lightgreen;
+}
 .callendarBase .dateCard .dashBoard {
   margin: 5px;
-  padding: 5px;
   border-radius: 5px;
   border: lightgray solid 2px;
   height: 100%;
   width: 95%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   font-size: 15px;
 }
-.callendarBase .dateCard .dashBoard .activeEmployees {
+.callendarBase .dateCard .dashBoard .baseShow {
   width: 100%;
 }
-.callendarBase .dateCard .dashBoard .activeEmployees .activeEmployeesBar {
+.callendarBase .dateCard .dashBoard .baseShow .emplyeesBar {
   display: grid;
 }
-.callendarBase .dateCard .dashBoard .activeEmployees .activeEmployeesBar .numberOfActiveEmployees {
+.callendarBase .dateCard .dashBoard .baseShow .emplyeesBar .inactiveEmployees {
   width: 100%;
   height: 10px;
   background-color: yellow;
+}
+.callendarBase .dateCard .dashBoard .baseShow .emplyeesBar .activeEmployees {
+  width: 100%;
+  height: 10px;
+  background-color: greenyellow;
 }
 .callendarBase .disabled {
   background-color: rgba(136, 136, 136, 0.2509803922);
@@ -527,6 +558,8 @@ body::-webkit-scrollbar {
   padding: 10px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
   z-index: 100;
 }
@@ -538,6 +571,8 @@ body::-webkit-scrollbar {
   border-radius: 5px;
   font-size: 20px;
   z-index: 100;
+  display: flex;
+  flex-direction: column;
 }
 .bellComponent .isShown {
   opacity: 1;

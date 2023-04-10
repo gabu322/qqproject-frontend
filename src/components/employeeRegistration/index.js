@@ -158,11 +158,8 @@ const EmployeeRegistration = (props) => {
                             {managerList?.map((manager) => (<option value={manager.name} key={manager.employeeData} id={manager.employeeId}></option>))}
                         </datalist>
                     </MDBValidationItem>
-                    <MDBValidationItem className='col-md-2 d-grid'>
+                    <MDBValidationItem className='col-md-4 d-grid'>
                         <MDBBtn onClick={updateEmployee} type='reset'>Cadastrar</MDBBtn>
-                    </MDBValidationItem>
-                    <MDBValidationItem className='col-md-2 d-grid'>
-                        <MDBBtn onClick={updateEmployee} type='reset' color='danger'>Deletar cadastro</MDBBtn>
                     </MDBValidationItem>
                 </MDBValidation>
             </MDBAccordionItem>

@@ -365,6 +365,21 @@ body {
             .bonusSallaryRequestButton {
                 width: 100%;
             }
+            .thirteenthSolicitation {
+
+                border: lightgray solid 2px;
+                border-radius: 5px;
+                min-height: 80px;
+                width: 100%;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .dateLastThirteenth {
+                width: 80%;
+            }
         }
 
         .logoutButton {
@@ -544,6 +559,12 @@ body {
     color: #666;
 }
 
+.searchBar {
+    z-index: -3;
+}
+.accorditionList {
+    z-index: -5;
+}
 .callendarBase {
     width: 70vw;
     display: grid;
@@ -572,25 +593,34 @@ body {
                 background-color: #4ebf85;
 
             }
+            .actualDate {
+                border-radius: 50%;
+                background-color: lightgreen;
+            }
         }
         .dashBoard {
             margin: 5px;
-            padding: 5px;
             border-radius: 5px;
             border: lightgray solid 2px;
             height: 100%;
             width: 95%;
             display: flex;
             flex-direction: column;
+            justify-content: space-around;
             font-size: 15px;
-            .activeEmployees {
+            .baseShow {
                 width: 100%;
-                .activeEmployeesBar {
+                .emplyeesBar {
                     display: grid;
-                    .numberOfActiveEmployees {
+                    .inactiveEmployees {
                         width: 100%;
                         height: 10px;
                         background-color: yellow;
+                    }
+                    .activeEmployees {
+                        width: 100%;
+                        height: 10px;
+                        background-color: greenyellow;
                     }
                 }
             }
@@ -621,8 +651,11 @@ body {
         padding: 10px;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
         gap: 10px;
         z-index: 100;
+
         .notificationComponent {
             background-color: #efefef;
             width: 100%;
@@ -631,6 +664,8 @@ body {
             border-radius: 5px;
             font-size: 20px;
             z-index: 100;
+            display: flex;
+            flex-direction: column;
         }
     }
     .isShown {

@@ -9,9 +9,10 @@ const NotificationBase = () => {
     useEffect(() => {
         axios.get("http://localhost:3001/notification/" + employee.id).then((response) => {
             setNotifications(response.data.map((notification) => {
-                return <Notifications notification={notification}></Notifications>
+                return notification.state === "Unread" ? <Notifications notification={notification}/> : null
             }))
         })
+        console.log(notifications)
     }, [])
     const [notificationList, setNotificationList] = useState(false)
 
@@ -19,9 +20,8 @@ const NotificationBase = () => {
         <Fragment>
             <div className="bellComponent ">
                 <MDBIcon fas icon="bell" size="3x" onClick={() => setNotificationList(!notificationList)} />
-
                     <div className={"notificationList shadow " + (notificationList ? "isShown" : '')} >
-                        {notifications}
+                        {notifications.length === 0 || notifications[0] === null ? <div className="noNotification">Nenhuma notificação no momento</div> : notifications}
                     </div>
 
             </div>

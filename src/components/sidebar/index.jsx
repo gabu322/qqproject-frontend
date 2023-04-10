@@ -39,7 +39,12 @@ const Sidebar = () => {
     useEffect(() => {
         axios.get("http://localhost:3001/vacations/" + employee.id).then((response) => {
             setVacationList(response.data);
-            let prevHighestTime = 730
+            let prevHighestTime;
+            if (response.data.length === 0) {
+                prevHighestTime = 0
+            } else {
+                prevHighestTime = 730
+            }
             response.data.map((vacation) => {
                 let startingDate = new Date(vacation.startDate);
                 let endingDate = new Date(vacation.endDate);
@@ -61,24 +66,24 @@ const Sidebar = () => {
             })
             if (prevHighestTime >= 300) {
                 axios.get("http://localhost:3001/notification/" + employee.id).then((response) => {
-                    let thirteenthNotification = false
+                    let vacationTimeExpiring = true
                     response.data.map((notificationData) => {
                         let sentDate = new Date(notificationData.sentDate)
                         let timeUntilNow = Math.ceil((today.getTime() - sentDate.getTime()) / (1000 * 3600 * 24))
-                        if (timeUntilNow <= 60 && notificationData.text === "Você está prestes a acumular período de férias") {
-                            thirteenthNotification = true
+                        if (timeUntilNow <= 60 && notificationData.text === "Atenção! Você está prestes a acumular período de férias, converse com seu gerente ou realize uma solicitação de férias") {
+                            vacationTimeExpiring = false
                         }
                     })
-                    if (!thirteenthNotification && employee.lastThirtheenth !== null) {
+                    if (vacationTimeExpiring) {
                         axios.post("http://localhost:3001/notification", {
                             employeeId: employee.id,
-                            sentDate: today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDay(),
+                            sentDate: today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate(),
                             state: "Unread",
                             text: "Atenção! Você está prestes a acumular período de férias, converse com seu gerente ou realize uma solicitação de férias"
                         })
                         axios.post("http://localhost:3001/notification", {
                             employeeId: employee.managerId,
-                            sentDate: today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDay(),
+                            sentDate: today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate(),
                             state: "Unread",
                             text: "Atenção! Seu funcionário " + employee.name + " está prestes a acumular período de férias"
                         })
@@ -117,7 +122,7 @@ const Sidebar = () => {
 
         let startingDate = new Date(vacationRequestForm.startDate);
         let endingDate = new Date(vacationRequestForm.endDate);
-        let totalVacationTime = Math.ceil((endingDate.getTime() - startingDate.getTime()) / (1000 * 3600 * 24));
+        let totalVacationTime = Math.ceil((endingDate.getTime() - startingDate.getTime()) / (1000 * 3600 * 24)) + 1;
 
         let vacationCorrect = true
 
@@ -139,24 +144,41 @@ const Sidebar = () => {
             vacationCorrect = false;
         }
 
-
         if (!vacationRelations.fifteenthPeriodDone && (employee.vacationDaysLeft - totalVacationTime) <= 15 && totalVacationTime < 15) {
             document.getElementById("vacationRequestError").innerText = 'Período de 15 dias não realizado, férias inválida'
             vacationCorrect = false;
         }
 
 
-        //console.log((Math.ceil((startingDate.getTime() - today.getTime()) / (1000 * 3600 * 24))))
         if (vacationCorrect) {
             await axios.post("http://localhost:3001/vacation", vacationRequestForm)
-            employee.vacationDaysLeft = employee.vacationDaysLeft - totalVacationTime
 
-            //setEmployee(employee => ({...employee, vacationDaysLeft: employee.vacationDaysLeft - totalVacationTime}))
+            employee.vacationDaysLeft = employee.vacationDaysLeft - totalVacationTime
             await axios.put("http://localhost:3001/employeeRegistration/" + employee.employeeId, employee)
             sessionStorage.setItem('user', JSON.stringify(employee))
+            //setEmployee(employee)
+            await axios.post("http://localhost:8000/workplace", {
+                name: employee.name,
+                start: (startingDate.getDate() + 1) + "/" + ((startingDate.getMonth() + 1) < 10 ? ("0" + (startingDate.getMonth() + 1)) : (startingDate.getMonth() + 1)) + "/" + startingDate.getFullYear(),
+                end: (endingDate.getDate() + 1) + "/" + ((endingDate.getMonth() + 1) < 10 ? ("0" + (endingDate.getMonth() + 1)) : (endingDate.getMonth() + 1)) + "/" + endingDate.getFullYear()
+            }).then((response) => { console.log(response.data) })
             window.location.reload(false)
         }
     }
+
+    const generateReport = () => {
+        axios.get(`http://localhost:8000/generateReport`, { responseType: 'blob' })
+            .then(response => {
+                console.log(response)
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'report.csv');
+                document.body.appendChild(link);
+                link.click();
+            });
+    };
+
     return (
         <Fragment>
             <div className={sidebarOpen ? "sidebarBase open" : "sidebarBase"}>
@@ -182,12 +204,12 @@ const Sidebar = () => {
                         <Fragment>
                             <hr />
                             <MDBBtn className="fullButton" color="success" onClick={goToCallendar}>Calendário</MDBBtn>
-                            {employee.isManager ? <MDBBtn className="fullButton" color="success" onClick={goToVacationPage}>Verificação de férias</MDBBtn> : ""}
+                            {employee.isManager ? <><MDBBtn className="fullButton" color="success" onClick={goToVacationPage}>Verificação de férias</MDBBtn><MDBBtn className="fullButton" color="success" onClick={generateReport}>Gerar relatório</MDBBtn></> : ""}
                             {employee.permissionEditEmployeeRegistration ? <MDBBtn className="fullButton" color="success" onClick={goToEmployeeRegistration}>Página de cadastro de funcionários</MDBBtn> : ""}
 
                         </Fragment>
                         : ''}
-                    {daysFromAdmissionDate >= 365 && employee.contractType == "CLT"
+                    {daysFromAdmissionDate >= 365
                         ? <Fragment>
                             <hr />
                             <div className="vacationInfo">
@@ -209,13 +231,13 @@ const Sidebar = () => {
                                         : <div className='noVacationRequested mb-3'>Sem férias solicitadas no momento</div>}
                                     {vacationRelations.anyActiveVacation
                                         ? <div className='vacation mb-2'>
-                                        <div className='inputs'>
-                                            <div className='date'><MDBInput type='date' value={vacationRelations.aciveVacationIndex.startDate} disabled label="Começo das férias" /></div>
-                                            <div className='date'><MDBInput type='date' value={vacationRelations.aciveVacationIndex.endDate} disabled label="Fim das férias" /></div>
-                                        </div>
-                                        <div className='extraText'>Próximas férias aceitas marcadas na data acima, agora só aguardar até o dia :)</div>
+                                            <div className='inputs'>
+                                                <div className='date'><MDBInput type='date' value={vacationRelations.aciveVacationIndex.startDate} disabled label="Começo das férias" /></div>
+                                                <div className='date'><MDBInput type='date' value={vacationRelations.aciveVacationIndex.endDate} disabled label="Fim das férias" /></div>
+                                            </div>
+                                            <div className='extraText'>Próximas férias aceitas marcadas na data acima, agora só aguardar até o dia :)</div>
 
-                                    </div>
+                                        </div>
                                         : ""}
 
                                 </div>
@@ -243,8 +265,22 @@ const Sidebar = () => {
                     {employee.contractType === 'CLT' ?
                         <><hr />
                             <div className="bonusSallaryInfo">
-                                <div className="bonusSallaryFeedback">Sem solicitações de 13º no momento</div>
-                                <MDBBtn className="bonusSallaryRequestButton" color="success" onClick={() => console.log(axios.get("http://localhost:3001/notification/" + employee.employeeId))}>Solicitar 13º</MDBBtn>
+                                {employee.lastThirtheenth === null ?
+                                    <div className='thirteenthSolicitation'>
+                                        <div>Décimo terceito solicitado na data</div>
+                                        <div className='dateLastThirteenth'>
+                                            <MDBInput disabled type='date' value={"2023-04-10"}></MDBInput>
+                                        </div>
+                                    </div>
+
+                                    : <div className="bonusSallaryFeedback">Sem solicitações de 13º no momento</div>}
+                                <MDBBtn className="bonusSallaryRequestButton" color="success" onClick={() => {
+                                    let today = new Date()
+                                    console.log(today)
+                                    employee.lastThirtheenth = today
+                                    axios.put("http://localhost:3001/employeeRegistration/" + employee.employeeId, employee)
+                                    setEmployee(employee)
+                                }}>Solicitar 13º</MDBBtn>
                             </div>
                         </> : ''
                     }

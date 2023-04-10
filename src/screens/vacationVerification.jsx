@@ -38,7 +38,7 @@ const VacationVerificationScreen = () => {
     return (
         <>
             <div className='searchBar'>
-                <input type='text' className='searchInput'></input>
+                <input type='text' className='searchInput' value={filterFormValue.searchN} onChange={(e) => setFilterFormValue(e.target.value)}></input>
                 <div className='icons'>
                     <MDBDropdown>
                         <MDBDropdownToggle color="light">Filtros </MDBDropdownToggle>
@@ -52,17 +52,17 @@ const VacationVerificationScreen = () => {
                 </div>
             </div>
             <div className='accorditionList'>
+
                 {vacationList?.map((vacationData) => (
-                    vacationData.state === 'Unread' && filterFormValue.pendingVacations === true ? <VacationVerification vacationData={vacationData} employeeData={employeeList} /> : ''
+                    vacationData.state === 'Unread' && filterFormValue.pendingVacations === true && filterFormValue.searchName === ''? <VacationVerification vacationData={vacationData} employeeData={employeeList} /> : ''
                 ))}
                 {vacationList?.map((vacationData) => (
-                    vacationData.state === 'Accepted' && filterFormValue.acceptedVacations === true ? <VacationVerification vacationData={vacationData} employeeData={employeeList} /> : ''
+                    vacationData.state === 'Accepted' && filterFormValue.acceptedVacations === true && filterFormValue.searchName === ''? <VacationVerification vacationData={vacationData} employeeData={employeeList} /> : ''
                 ))}
                 {vacationList?.map((vacationData) => (
-                    vacationData.state === 'Denied' && filterFormValue.deniedVacations === true ? <VacationVerification vacationData={vacationData} employeeData={employeeList} /> : ''
+                    vacationData.state === 'Denied' && filterFormValue.deniedVacations === true && filterFormValue.searchName === ''? <VacationVerification vacationData={vacationData} employeeData={employeeList} /> : ''
                 ))}
             </div>
-
 
         </>
     )
