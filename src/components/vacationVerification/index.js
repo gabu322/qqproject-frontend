@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     MDBAccordion,
     MDBAccordionItem,
     MDBInput,
     MDBValidation,
     MDBValidationItem,
-    MDBCheckbox,
     MDBBtn,
-    MDBRadio
 } from 'mdb-react-ui-kit';
 import axios from 'axios';
 
@@ -59,7 +57,7 @@ const VacationVerification = (props) => {
                         <MDBInput name='endDate' label='Data de fim das férias' readOnly onChange={onChange} value={formValue.endDate} />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-8'>
-                        <MDBInput name='description' label='Descrição' onChange={onChange} value={formValue.description} disabled={formValue.state === "Accepted" || formValue.state === "Denied" ? true : false}/>
+                        <MDBInput name='description' label='Descrição' onChange={onChange} value={formValue.description} disabled={formValue.state === "Accepted" || formValue.state === "Denied" ? true : false} />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-2 d-grid'>
                         <MDBBtn type='reset' color='success' onClick={acceptVacation} disabled={formValue.state === "Accepted" || formValue.state === "Denied" ? true : false}>Aceitar férias</MDBBtn>

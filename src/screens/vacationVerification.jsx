@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MDBCheckbox, MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle, MDBIcon } from 'mdb-react-ui-kit';
+import { MDBCheckbox, MDBDropdown, MDBDropdownMenu, MDBDropdownToggle, MDBIcon } from 'mdb-react-ui-kit';
 import axios from 'axios';
 import VacationVerification from '../components/vacationVerification';
 
@@ -43,9 +43,9 @@ const VacationVerificationScreen = () => {
                     <MDBDropdown>
                         <MDBDropdownToggle color="light">Filtros </MDBDropdownToggle>
                         <MDBDropdownMenu>
-                            <MDBCheckbox label='Férias pendentes' checked={filterFormValue.pendingVacations} onChange={() => {setFilterFormValue({...filterFormValue, pendingVacations: !filterFormValue.pendingVacations})}} />
-                            <MDBCheckbox label='Férias aceitas' checked={filterFormValue.acceptedVacations}  onChange={() => {setFilterFormValue({...filterFormValue, acceptedVacations: !filterFormValue.acceptedVacations})}}/>
-                            <MDBCheckbox label='Férias negadas' checked={filterFormValue.deniedVacations} onChange={() => {setFilterFormValue({...filterFormValue, deniedVacations: !filterFormValue.deniedVacations})}}/>
+                            <MDBCheckbox label='Férias pendentes' checked={filterFormValue.pendingVacations} onChange={() => { setFilterFormValue({ ...filterFormValue, pendingVacations: !filterFormValue.pendingVacations }) }} />
+                            <MDBCheckbox label='Férias aceitas' checked={filterFormValue.acceptedVacations} onChange={() => { setFilterFormValue({ ...filterFormValue, acceptedVacations: !filterFormValue.acceptedVacations }) }} />
+                            <MDBCheckbox label='Férias negadas' checked={filterFormValue.deniedVacations} onChange={() => { setFilterFormValue({ ...filterFormValue, deniedVacations: !filterFormValue.deniedVacations }) }} />
                         </MDBDropdownMenu>
                     </MDBDropdown>
                     <MDBIcon fas icon="search" size='2x' />
@@ -54,13 +54,13 @@ const VacationVerificationScreen = () => {
             <div className='accorditionList'>
 
                 {vacationList?.map((vacationData) => (
-                    vacationData.state === 'Unread' && filterFormValue.pendingVacations === true && filterFormValue.searchName === ''? <VacationVerification vacationData={vacationData} employeeData={employeeList} /> : ''
+                    vacationData.state === 'Unread' && filterFormValue.pendingVacations === true && filterFormValue.searchName === '' ? <VacationVerification vacationData={vacationData} employeeData={employeeList} /> : ''
                 ))}
                 {vacationList?.map((vacationData) => (
-                    vacationData.state === 'Accepted' && filterFormValue.acceptedVacations === true && filterFormValue.searchName === ''? <VacationVerification vacationData={vacationData} employeeData={employeeList} /> : ''
+                    vacationData.state === 'Accepted' && filterFormValue.acceptedVacations === true && filterFormValue.searchName === '' ? <VacationVerification vacationData={vacationData} employeeData={employeeList} /> : ''
                 ))}
                 {vacationList?.map((vacationData) => (
-                    vacationData.state === 'Denied' && filterFormValue.deniedVacations === true && filterFormValue.searchName === ''? <VacationVerification vacationData={vacationData} employeeData={employeeList} /> : ''
+                    vacationData.state === 'Denied' && filterFormValue.deniedVacations === true && filterFormValue.searchName === '' ? <VacationVerification vacationData={vacationData} employeeData={employeeList} /> : ''
                 ))}
             </div>
 

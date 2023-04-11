@@ -1,5 +1,5 @@
 import axios from "axios";
-import { MDBBtn, MDBIcon } from "mdb-react-ui-kit";
+import { MDBIcon } from "mdb-react-ui-kit";
 import React, { Fragment, useEffect, useState } from "react";
 import Notifications from "./notifications";
 
@@ -9,7 +9,7 @@ const NotificationBase = () => {
     useEffect(() => {
         axios.get("http://localhost:3001/notification/" + employee.id).then((response) => {
             setNotifications(response.data.map((notification) => {
-                return notification.state === "Unread" ? <Notifications notification={notification}/> : null
+                return notification.state === "Unread" ? <Notifications notification={notification} /> : null
             }))
         })
         console.log(notifications)
@@ -20,9 +20,9 @@ const NotificationBase = () => {
         <Fragment>
             <div className="bellComponent ">
                 <MDBIcon fas icon="bell" size="3x" onClick={() => setNotificationList(!notificationList)} />
-                    <div className={"notificationList shadow " + (notificationList ? "isShown" : '')} >
-                        {notifications.length === 0 || notifications[0] === null ? <div className="noNotification">Nenhuma notificação no momento</div> : notifications}
-                    </div>
+                <div className={"notificationList shadow " + (notificationList ? "isShown" : '')} >
+                    {notifications.length === 0 || notifications[0] === null ? <div className="noNotification">Nenhuma notificação no momento</div> : notifications}
+                </div>
 
             </div>
         </Fragment>

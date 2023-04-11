@@ -26,18 +26,16 @@ const SinginScreen = () => {
         document.getElementById('cpf_cnpjError').innerText = '';
         document.getElementById('businessEmailError').innerText = '';
         document.getElementById('passwordError').innerText = '';
-        if (document.getElementById('nameConfirmation').value === '') {document.getElementById('nameError').innerText = 'Escreva seu nome para cadastrar'}
-        if (document.getElementById('employeeIdConfirmation').value === '') {document.getElementById('employeeIdError').innerText = 'Escreva seu CPF/CNPJ para cadastrar'}
-        if (document.getElementById('cpf_cnpjConfirmation').value ==='') {document.getElementById('cpf_cnpjError').innerText = 'Escreva seu CPF/CNPJ para cadastrar'}
-        if (document.getElementById('businessEmailConfirmation').value === '') {document.getElementById('businessEmailError').innerText = 'Escreva seu email para cadastrar'}
+        if (document.getElementById('nameConfirmation').value === '') { document.getElementById('nameError').innerText = 'Escreva seu nome para cadastrar' }
+        if (document.getElementById('employeeIdConfirmation').value === '') { document.getElementById('employeeIdError').innerText = 'Escreva seu CPF/CNPJ para cadastrar' }
+        if (document.getElementById('cpf_cnpjConfirmation').value === '') { document.getElementById('cpf_cnpjError').innerText = 'Escreva seu CPF/CNPJ para cadastrar' }
+        if (document.getElementById('businessEmailConfirmation').value === '') { document.getElementById('businessEmailError').innerText = 'Escreva seu email para cadastrar' }
         if (document.getElementById('passwordConfirmation').value === formValue.password &&
             formValue.name !== '' &&
             formValue.employeeId !== '' &&
             formValue.password !== '' &&
             formValue.cpf_cnpj !== '' &&
-            formValue.businessEmail !== '' &&
-            formValue.personalEmail !== ''
-            ) {
+            formValue.businessEmail !== '') {
             navigate('/')
             axios.post("http://localhost:3001/singin", formValue)
 

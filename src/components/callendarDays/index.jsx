@@ -12,11 +12,12 @@ const CallendarDays = (props) => {
     useEffect(() => {
         let onVacationEmployees = [];
         let activeEmployees = []
-        for(let i = 0; i < props.employeeQuantity; i++) {
+        for (let i = 0; i < props.employeeQuantity; i++) {
             activeEmployees.push('')
         }
         axios.get("http://localhost:3001/vacationDate/" + ("2023-" + props.month + "-" + props.day)).then((response) => {
             response.data.forEach((vacation) => {
+                console.log(vacation.id)
                 if (vacation.employeeId === employee.id && vacation.state === "Accepted") {
                     setIsInVacation(true)
                     document.getElementById("inVacation").innerHTML = "De férias"
@@ -48,7 +49,7 @@ const CallendarDays = (props) => {
                     <div>Funcionários:</div>
                     <div className="baseShow">
                         <div>De férias: {onVacationEmployeesList.length}</div>
-                        <div className="emplyeesBar" style={{ "gridTemplateColumns": "repeat(" + props.employeeQuantity + ", 1fr)" }}>{onVacationEmployeesList.length >= 1 ? onVacationEmployeesList : <div className="numberOfActiveEmployees" style={{width: '0px'}}></div>}</div>
+                        <div className="emplyeesBar" style={{ "gridTemplateColumns": "repeat(" + props.employeeQuantity + ", 1fr)" }}>{onVacationEmployeesList.length >= 1 ? onVacationEmployeesList : <div className="numberOfActiveEmployees" style={{ width: '0px' }}></div>}</div>
                     </div>
                     <div className="baseShow">
                         <div>Em atividade: {activeEmployeesList.length}</div>

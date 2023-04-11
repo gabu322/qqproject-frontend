@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     MDBAccordion,
     MDBAccordionItem,
@@ -42,57 +42,57 @@ const EmployeeRegistration = (props) => {
     async function updateEmployee() {
         let checkForm = false;
 
-        if(formValue.name === "") {
+        if (formValue.name === "") {
             document.getElementsByName('nameError' + formValue.employeeId)[0].innerText = 'Nome completo (campo vazio)';
             checkForm = true;
         } else {
             document.getElementsByName('nameError' + formValue.employeeId)[0].innerText = '';
         }
-        if(formValue.employeeId === "") {
+        if (formValue.employeeId === "") {
             document.getElementsByName('employeeIdError' + formValue.employeeId)[0].innerText = 'Matrícula (campo vazio)';
             checkForm = true;
         } else {
             document.getElementsByName('employeeIdError' + formValue.employeeId)[0].innerText = '';
         }
-        if(formValue.cpf_cnpj === "") {
+        if (formValue.cpf_cnpj === "") {
             document.getElementsByName('cpf_cnpjError' + formValue.employeeId)[0].innerText = 'CPF/CNPJ (campo vazio)';
             checkForm = true;
         } else {
             document.getElementsByName('cpf_cnpjError' + formValue.employeeId)[0].innerText = '';
         }
-        if(formValue.businessEmail === "") {
+        if (formValue.businessEmail === "") {
             document.getElementsByName('businessEmailError' + formValue.employeeId)[0].innerText = 'Email empresarial (campo vazio)';
             checkForm = true;
         } else {
             document.getElementsByName('businessEmailError' + formValue.employeeId)[0].innerText = '';
         }
 
-        if(formValue.personalEmail === "") {
+        /*if(formValue.personalEmail === "") {
             document.getElementsByName('personalEmailError' + formValue.employeeId)[0].innerText = 'Email pessoal (campo vazio)';
             checkForm = true;
         } else {
             document.getElementsByName('personalEmailError' + formValue.employeeId)[0].innerText = '';
-        }
-        if(formValue.admissionDate === "") {
+        }*/
+        if (formValue.admissionDate === "") {
             document.getElementsByName('admissionDateError' + formValue.employeeId)[0].innerText = 'Data de contratação (campo vazio)';
             checkForm = true;
         } else {
             document.getElementsByName('admissionDateError' + formValue.employeeId)[0].innerText = '';
         }
-        if(formValue.vacationDaysLeft === "") {
+        if (formValue.vacationDaysLeft === "") {
             document.getElementsByName('vacationDaysLeftError' + formValue.employeeId)[0].innerText = 'Dias de férias restantes (campo vazio)';
             checkForm = true;
         } else {
             document.getElementsByName('vacationDaysLeftError' + formValue.employeeId)[0].innerText = '';
         }
-        if(!checkForm) {
+        if (!checkForm) {
             console.log(formValue)
-            if(typeof(formValue.managerId) == 'string') {
+            if (typeof (formValue.managerId) == 'string') {
                 await axios.get("http://localhost:3001/employeeRegistration/managers/" + formValue.managerId).then((response => {
                     formValue.managerId = response.data.id
                 }))
             }
-            if(formValue.lastThirtheenth === '') {
+            if (formValue.lastThirtheenth === '') {
                 formValue.lastThirtheenth = null
             }
             await axios.put("http://localhost:3001/employeeRegistration/" + formValue.employeeId, formValue)
@@ -105,51 +105,51 @@ const EmployeeRegistration = (props) => {
                 <MDBValidation className='row g-3'>
                     <MDBValidationItem className='col-md-4'>
                         <MDBInput value={formValue.name} name='name' onChange={onChange} label='Nome completo'>
-                            <div id='error' name={'nameError' + formValue.employeeId}/>
+                            <div id='error' name={'nameError' + formValue.employeeId} />
                         </MDBInput>
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4'>
                         <MDBInput value={formValue.employeeId} name='employeeId' onChange={onChange} label='Matricula'>
-                            <div id='error' name={'employeeIdError' + formValue.employeeId}/>
+                            <div id='error' name={'employeeIdError' + formValue.employeeId} />
                         </MDBInput>
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4'>
                         <MDBInput value={formValue.cpf_cnpj} name='cpf_cnpj' onChange={onChange} label='CPF/CNPJ'>
-                            <div id='error' name={'cpf_cnpjError' + formValue.employeeId}/>
+                            <div id='error' name={'cpf_cnpjError' + formValue.employeeId} />
                         </MDBInput>
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4'>
                         <MDBInput value={formValue.businessEmail} name='businessEmail' onChange={onChange} label='Email empresarial'>
-                            <div id='error' name={'businessEmailError' + formValue.employeeId}/>
+                            <div id='error' name={'businessEmailError' + formValue.employeeId} />
                         </MDBInput>
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4'>
                         <MDBInput value={formValue.personalEmail} name='personalEmail' onChange={onChange} label='Email pessoal'>
-                            <div id='error' name={'personalEmailError' + formValue.employeeId}/>
+                            <div id='error' name={'personalEmailError' + formValue.employeeId} />
                         </MDBInput>
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4 d-flex align-items-center justify-content-center'>
-                        <MDBCheckbox name='isManager' onChange={() => { formValue.permissionEditEmployeeRegistration = !formValue.permissionEditEmployeeRegistration }} label='Permissão para editar cadastro de funcionário' defaultChecked={formValue.permissionEditEmployeeRegistration}/>
+                        <MDBCheckbox name='isManager' onChange={() => { formValue.permissionEditEmployeeRegistration = !formValue.permissionEditEmployeeRegistration }} label='Permissão para editar cadastro de funcionário' defaultChecked={formValue.permissionEditEmployeeRegistration} />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4'>
                         <MDBInput value={formValue.admissionDate} name='admissionDate' onChange={onChange} label='Data de contratação' type='date'>
-                            <div id='error' name={'admissionDateError' + formValue.employeeId}/>
+                            <div id='error' name={'admissionDateError' + formValue.employeeId} />
                         </MDBInput>
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4'>
-                        <MDBInput value={formValue.lastThirtheenth} name='lastThirtheenth' onChange={onChange} label='Data do último 13º solicitado' type='date'/>
+                        <MDBInput value={formValue.lastThirtheenth} name='lastThirtheenth' onChange={onChange} label='Data do último 13º solicitado' type='date' />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-2 d-flex align-items-center justify-content-center'>
                         <MDBCheckbox name='isManager'
-                            onChange={() => { formValue.isManager = !formValue.isManager }} id='isManagerCheckbox' label='Cargo de Gestor' defaultChecked={formValue.isManager}/>
+                            onChange={() => { formValue.isManager = !formValue.isManager }} id='isManagerCheckbox' label='Cargo de Gestor' defaultChecked={formValue.isManager} />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-2 d-flex align-items-center justify-content-around'>
-                        <MDBRadio value={"CLT"} labelClass={'contractTypeCLT' + formValue.employeeId} name='contractType' label='CLT' onChange={onChange} defaultChecked={formValue.contractType === 'CLT' ? true : false}/>
-                        <MDBRadio value={"PJ"} labelId={'contractTypePJ' + formValue.employeeId} name='contractType' label='PJ' onChange={onChange} defaultChecked={formValue.contractType === 'PJ' ? true : false}/>
+                        <MDBRadio value={"CLT"} labelClass={'contractTypeCLT' + formValue.employeeId} name='contractType' label='CLT' onChange={onChange} defaultChecked={formValue.contractType === 'CLT' ? true : false} />
+                        <MDBRadio value={"PJ"} labelId={'contractTypePJ' + formValue.employeeId} name='contractType' label='PJ' onChange={onChange} defaultChecked={formValue.contractType === 'PJ' ? true : false} />
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4'>
                         <MDBInput value={formValue.vacationDaysLeft} name='vacationDaysLeft' onChange={onChange} label='Dias de férias restantes'>
-                            <div id='error' name={'vacationDaysLeftError' + formValue.employeeId}/>
+                            <div id='error' name={'vacationDaysLeftError' + formValue.employeeId} />
                         </MDBInput>
                     </MDBValidationItem>
                     <MDBValidationItem className='col-md-4'>

@@ -144,7 +144,7 @@ const Sidebar = () => {
             vacationCorrect = false;
         }
 
-        if (!vacationRelations.fifteenthPeriodDone && (employee.vacationDaysLeft - totalVacationTime) <= 15 && totalVacationTime < 15) {
+        if (!vacationRelations.fifteenthPeriodDone && (employee.vacationDaysLeft - totalVacationTime) < 15 && totalVacationTime < 15) {
             document.getElementById("vacationRequestError").innerText = 'Período de 15 dias não realizado, férias inválida'
             vacationCorrect = false;
         }
@@ -162,6 +162,12 @@ const Sidebar = () => {
                 start: (startingDate.getDate() + 1) + "/" + ((startingDate.getMonth() + 1) < 10 ? ("0" + (startingDate.getMonth() + 1)) : (startingDate.getMonth() + 1)) + "/" + startingDate.getFullYear(),
                 end: (endingDate.getDate() + 1) + "/" + ((endingDate.getMonth() + 1) < 10 ? ("0" + (endingDate.getMonth() + 1)) : (endingDate.getMonth() + 1)) + "/" + endingDate.getFullYear()
             }).then((response) => { console.log(response.data) })
+            axios.post("http://localhost:8000/email", {
+                name: employee.name,
+                start: (startingDate.getDate() + 1) + "/" + ((startingDate.getMonth() + 1) < 10 ? ("0" + (startingDate.getMonth() + 1)) : (startingDate.getMonth() + 1)) + "/" + startingDate.getFullYear(),
+                end: (endingDate.getDate() + 1) + "/" + ((endingDate.getMonth() + 1) < 10 ? ("0" + (endingDate.getMonth() + 1)) : (endingDate.getMonth() + 1)) + "/" + endingDate.getFullYear()
+            }).then((response) => { console.log(response.data) })
+
             window.location.reload(false)
         }
     }
@@ -265,15 +271,15 @@ const Sidebar = () => {
                     {employee.contractType === 'CLT' ?
                         <><hr />
                             <div className="bonusSallaryInfo">
-                                {employee.lastThirtheenth === null ?
-                                    <div className='thirteenthSolicitation'>
+                                {employee.lastThirtheenth === null
+                                    ? <div className="bonusSallaryFeedback">Sem solicitações de 13º no momento</div>
+
+                                    : <div className='thirteenthSolicitation'>
                                         <div>Décimo terceito solicitado na data</div>
                                         <div className='dateLastThirteenth'>
                                             <MDBInput disabled type='date' value={"2023-04-10"}></MDBInput>
                                         </div>
-                                    </div>
-
-                                    : <div className="bonusSallaryFeedback">Sem solicitações de 13º no momento</div>}
+                                    </div>}
                                 <MDBBtn className="bonusSallaryRequestButton" color="success" onClick={() => {
                                     let today = new Date()
                                     console.log(today)

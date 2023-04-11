@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import { MDBBtn } from "mdb-react-ui-kit";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 
 const Notifications = (props) => {
     const notificationData = props.notification
@@ -14,7 +14,7 @@ const Notifications = (props) => {
 
     function readNotification() {
         notificationForm.state = "Read"
-        setNotificationForm({...notificationForm, state: "Read"})
+        setNotificationForm({ ...notificationForm, state: "Read" })
         axios.put("http://localhost:3001/notification/" + notificationData.id, notificationForm)
     }
     return (
